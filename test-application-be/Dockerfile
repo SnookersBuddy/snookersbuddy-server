@@ -1,14 +1,17 @@
-FROM openjdk:18 as build
+FROM maven:3-openjdk-17 as build
+
 WORKDIR /workspace/app
 
-COPY mvnw pom.xml .
 COPY src/ src/
-COPY .mvn .mvn
+COPY pom.xml ./
 
-RUN ./mvnw clean package
+# XXX: Don't compile and run tests as long as the tests require a working JDBC connection.
+RUN mvn -B -Dmaven.test.skip=true -f pom.xml clean package
 
 
-FROM openjdk:18
+FROM openjdk:17-slim
+
 VOLUME /tmp
 COPY --from=build /workspace/app/target/*.jar app.jar
+
 ENTRYPOINT ["java", "-jar", "/app.jar"]
