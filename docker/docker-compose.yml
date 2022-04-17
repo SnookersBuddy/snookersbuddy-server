@@ -1,18 +1,12 @@
-version: '3.5'
-
+version: "3"
 services:
-  duconCMS_database:
-    image: mysql:5.7
-    container_name: snookers_sells_database
+  backend:
+    image: snookers-sells-be
+    build: ../test-application-be
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: snookers_sells
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      SS_DB_HOST: db:5432
+      SS_DB_USER: snookers
+      SS_DB_PASS: snookers
+      SS_DB_DATABASE: snookers
     ports:
-      - 53306:3306
-    volumes:
-      - snookers_sells_data:/var/lib/mysql
-
-volumes:
-  snookers_sells_data:
+      - "28080:28080"
