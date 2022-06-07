@@ -3,7 +3,6 @@ package com.example.testapplicationbe.controller;
 import com.example.testapplicationbe.service.AssignmentService;
 import com.example.testapplicationbe.transferobjects.AssignmentCreateBody;
 import com.example.testapplicationbe.transferobjects.AssignmentTO;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,12 +17,12 @@ public class AssignmentController {
 
 
     @GetMapping("/api/assignments")
-    public AssignmentTO getZuordnungen(){
+    public AssignmentTO getZuordnungen() {
         return assignmentService.getAllAssignments();
     }
 
     @PostMapping("api/assignments/create")
-    public boolean createCustomAssignment(@RequestBody AssignmentCreateBody assignmentCreateBody){
+    public boolean createCustomAssignment(@RequestBody AssignmentCreateBody assignmentCreateBody) {
         return assignmentService.createNewCustomAssignment(assignmentCreateBody.getName());
     }
 }

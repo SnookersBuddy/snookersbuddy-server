@@ -8,12 +8,12 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@Table(name = "posten")
+@Table(name = "items")
 @Entity
 public class Item implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "name")
