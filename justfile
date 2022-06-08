@@ -1,5 +1,5 @@
 root := justfile_directory()
-app_dir := join(root, "test-application-be")
+app_dir := join(root, "app")
 docker_dir := join(root, "docker")
 
 prepare-dev:
