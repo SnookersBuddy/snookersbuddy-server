@@ -1,12 +1,14 @@
 package com.example.testapplicationbe.controller;
 
 import com.example.testapplicationbe.service.AssignmentService;
-import com.example.testapplicationbe.transferobjects.AssignmentCreateBody;
-import com.example.testapplicationbe.transferobjects.AssignmentTO;
-import org.springframework.web.bind.annotation.*;
+import com.example.testapplicationbe.transferobjects.CreateAssignmentInput;
+import com.example.testapplicationbe.transferobjects.GetAssignmentsOutput;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 public class AssignmentController {
 
     private final AssignmentService assignmentService;
@@ -17,12 +19,12 @@ public class AssignmentController {
 
 
     @GetMapping("/api/assignments")
-    public AssignmentTO getZuordnungen() {
+    public GetAssignmentsOutput getZuordnungen() {
         return assignmentService.getAllAssignments();
     }
 
     @PostMapping("api/assignments/create")
-    public boolean createCustomAssignment(@RequestBody AssignmentCreateBody assignmentCreateBody) {
-        return assignmentService.createNewCustomAssignment(assignmentCreateBody.getName());
+    public boolean createCustomAssignment(@RequestBody CreateAssignmentInput createAssignmentInput) {
+        return assignmentService.createNewCustomAssignment(createAssignmentInput.getName());
     }
 }

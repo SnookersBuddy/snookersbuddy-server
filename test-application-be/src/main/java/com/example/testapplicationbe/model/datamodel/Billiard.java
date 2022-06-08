@@ -14,7 +14,7 @@ public class Billiard implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @Column(name = "price_per_unit")
     private int pricePerUnit;
