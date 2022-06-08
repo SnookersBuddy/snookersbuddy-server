@@ -1,4 +1,4 @@
-package de.snookersbuddy.snookersbuddyserver.configuration;
+package de.snookersbuddy.snookersbuddyserver.infrastructure.spring;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

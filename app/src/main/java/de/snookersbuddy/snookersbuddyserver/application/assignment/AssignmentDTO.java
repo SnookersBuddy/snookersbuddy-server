@@ -1,4 +1,4 @@
-package de.snookersbuddy.snookersbuddyserver.model.transfermodel;
+package de.snookersbuddy.snookersbuddyserver.application.assignment;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,5 @@
-package de.snookersbuddy.snookersbuddyserver.persistence;
+package de.snookersbuddy.snookersbuddyserver.domain.model.user;
 
-import de.snookersbuddy.snookersbuddyserver.model.datamodel.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
