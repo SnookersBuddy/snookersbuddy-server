@@ -41,3 +41,28 @@ If you want to fully utilize your IDE, you can do something like this in Intelli
 2. Choose *Run 'docker-compose.dev.yml'*.
 3. Next time you start IntelliJ, you will find this under your run configurations.
 
+
+## Architecture
+
+This project loosely follows DDD tactical patterns and is oriented towards a hexagonal architecture.
+Inside any of the following folders, subpackages will be grouped by their use case / domain model.
+
+### Application
+
+Entrypoint for the ports to the domain. Usually, controller speak to just services inside the application layer.
+Everything in there is basically a Spring Service.
+
+### Domain (Model)
+
+The domain package is only concerned about domain logic.
+
+### Infrastructure
+
+Everything that is needed for the application to run but is not part of the domain model is put here.
+Infrastructure concerns can be interfaces that talk to external services (email, rest clients, ...) or simply 
+configuration files for Spring.
+
+### Ports
+
+Define ways in and out of the application. Subpackages usually denote the protocol that is used (rest, websocket, 
+grcp, ...).

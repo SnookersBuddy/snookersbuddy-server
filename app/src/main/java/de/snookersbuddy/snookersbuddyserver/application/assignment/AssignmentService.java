@@ -1,32 +1,25 @@
-package de.snookersbuddy.snookersbuddyserver.service;
+package de.snookersbuddy.snookersbuddyserver.application.assignment;
 
-import de.snookersbuddy.snookersbuddyserver.model.datamodel.Assignment;
-import de.snookersbuddy.snookersbuddyserver.persistence.AssignmentRepository;
-import de.snookersbuddy.snookersbuddyserver.transferobjects.GetAssignmentsOutput;
+import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.Assignment;
+import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.AssignmentRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class AssignmentService {
 
-    private final AssignmentRepository assignmentRepository;
-
     private static final boolean DEFAULT_CUSTOM_VALUE = true;
+    private final AssignmentRepository assignmentRepository;
 
     public AssignmentService(AssignmentRepository assignmentRepository) {
         this.assignmentRepository = assignmentRepository;
     }
 
-    public GetAssignmentsOutput getAllAssignments() {
-        GetAssignmentsOutput getAssignmentsOutput = new GetAssignmentsOutput();
-        List<Assignment> assignmentDataObjects = Collections.emptyList();
-        assignmentDataObjects = assignmentRepository.findAll();
-        getAssignmentsOutput.setAssignments(AssignmentMapper.mapDataObjectsOnTransferObjects(assignmentDataObjects));
-
-        return getAssignmentsOutput;
+    public Set<AssignmentDTO> getAllAssignments() {
+        final var assignments = AssignmentMapper.mapDataObjectsOnTransferObjects(assignmentRepository.findAll());
+        return Set.copyOf(assignments);
     }
 
     public boolean createNewCustomAssignment(String name) {

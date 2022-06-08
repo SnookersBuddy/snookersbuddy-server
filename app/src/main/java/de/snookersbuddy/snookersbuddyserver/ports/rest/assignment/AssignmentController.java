@@ -1,8 +1,6 @@
-package de.snookersbuddy.snookersbuddyserver.controller;
+package de.snookersbuddy.snookersbuddyserver.ports.rest.assignment;
 
-import de.snookersbuddy.snookersbuddyserver.service.AssignmentService;
-import de.snookersbuddy.snookersbuddyserver.transferobjects.CreateAssignmentInput;
-import de.snookersbuddy.snookersbuddyserver.transferobjects.GetAssignmentsOutput;
+import de.snookersbuddy.snookersbuddyserver.application.assignment.AssignmentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +18,12 @@ public class AssignmentController {
 
     @GetMapping("/api/assignments")
     public GetAssignmentsOutput getZuordnungen() {
-        return assignmentService.getAllAssignments();
+        final var assignments =  assignmentService.getAllAssignments();
+        return new GetAssignmentsOutput(assignments);
     }
 
     @PostMapping("api/assignments/create")
     public boolean createCustomAssignment(@RequestBody CreateAssignmentInput createAssignmentInput) {
-        return assignmentService.createNewCustomAssignment(createAssignmentInput.getName());
+        return assignmentService.createNewCustomAssignment(createAssignmentInput.name());
     }
 }

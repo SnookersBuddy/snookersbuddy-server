@@ -1,4 +1,4 @@
-package de.snookersbuddy.snookersbuddyserver.model.datamodel;
+package de.snookersbuddy.snookersbuddyserver.domain.model.assignment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
