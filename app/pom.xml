@@ -15,9 +15,6 @@
     <description>Server application for SnookersBuddy</description>
     <properties>
         <java.version>17</java.version>
-        <flyway.user>snookers</flyway.user>
-        <flyway.password>snookers</flyway.password>
-        <flyway.schemas>public</flyway.schemas>
     </properties>
     <dependencies>
         <dependency>
@@ -91,6 +88,7 @@
                     <user>snookers</user>
                     <password>snookers</password>
                     <url>jdbc:postgresql://localhost:25432/snookers</url>
+                    <baselineOnMigrate>true</baselineOnMigrate>
                     <schemas>
                         <schema>public</schema>
                     </schemas>
