@@ -1,18 +1,16 @@
 create table assignment
 (
     id              serial not null
-        constraint assignment_pkey
-         primary key,
+        primary key,
     abbreviation    varchar(255),
-    assignment_name varchar(255),
+    assignment_name varchar(255) unique,
     custom          boolean
 );
 
 create table items
 (
     id              serial not null
-        constraint items_pkey
-            primary key,
+        primary key,
     description     varchar(255),
     name            varchar(255),
     special_feature varchar(255)
@@ -21,28 +19,23 @@ create table items
 create table options
 (
     id   serial not null
-        constraint options_pkey
-            primary key,
+        primary key,
     name varchar(255)
 );
 
 create table options_allowed_items
 (
     option_id        serial not null
-        constraint fk230ypd1bfiuodxcm8q280eq8t
-            references options,
+        references options,
     allowed_items_id serial not null
-        constraint uk_npuur7p5exmxjcef28h6bxq6l
-            unique
-        constraint fk62d8bxinnap5ps0l09mxvw4kh
-            references items
+        unique
+        references items
 );
 
 create table orders
 (
     id         serial not null
-        constraint orders_pkey
-            primary key,
+        primary key,
     end_time   integer,
     start_time integer
 );
@@ -50,8 +43,7 @@ create table orders
 create table users
 (
     id    serial not null
-        constraint users_pkey
-            primary key,
+        primary key,
     email varchar(255),
     name  varchar(255)
 );
@@ -59,8 +51,7 @@ create table users
 create table variants
 (
     id   serial not null
-        constraint variants_pkey
-            primary key,
+        primary key,
     name varchar(255)
 );
 
