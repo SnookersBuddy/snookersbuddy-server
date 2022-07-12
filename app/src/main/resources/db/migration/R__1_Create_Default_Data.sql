@@ -1,6 +1,6 @@
 -- Insertions for Assignment-Table
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (1, 'Billard 1', '1', false);
+VALUES (1, 'Billard 1', '1', false) ON CONFLICT DO NOTHING;;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
 VALUES (2, 'Billard 2', '2', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
@@ -77,7 +77,7 @@ INSERT INTO items (id, item_name, abbreviation, category, description, special_f
 -- 2
 VALUES (9, 'Apfelsaft', 'AS', 2, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
--- Apfelsaftschorle ? + SCH
+-- TODO Apfelsaftschorle ? + SCH
 VALUES (10, 'Orangennektar', 'OS', 2, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (11, 'Kirschnektar', 'KS', 2, null, null) ON CONFLICT DO NOTHING;
@@ -94,7 +94,7 @@ INSERT INTO items (id, item_name, abbreviation, category, description, special_f
 VALUES (16, 'Ballantines', 'BAL', 3, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (17, 'Canadian Club', 'CAN', 3, null, null) ON CONFLICT DO NOTHING;
--- TODO: Vlt auch CAC
+-- TODO: Maybe CAC
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (18, 'Glenfiddich', 'GLE', 3, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
@@ -105,10 +105,10 @@ INSERT INTO items (id, item_name, abbreviation, category, description, special_f
 VALUES (21, 'Jim Beam Black', 'JBB', 3, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (22, 'Johnny Walker Red Label', 'JWRL', 3, null, null) ON CONFLICT DO NOTHING;
--- TODO: Vlt auch JRL
+-- TODO: Maybe JRL
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (23, 'Johnny Walker Black Label', 'JWBL', 3, null, null) ON CONFLICT DO NOTHING;
--- TODO: Vlt auch JBL
+-- TODO: Maybe JBL
 -- 4
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (25, 'Amaretto', 'AMA', 4, null, null) ON CONFLICT DO NOTHING;
@@ -141,142 +141,174 @@ VALUES (38, 'Sambuca White', 'SAM', 4, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (39, 'Sambuca Caffe', 'SAMC', 4, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (40, 'Southern Comfort', 'SC', 4, null, null) ON CONFLICT DO NOTHING;
+VALUES (40, 'Southern Comfort', 'SOU', 4, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 -- 5
-VALUES (41, 'Chantre', 'Ch', 5, null, null) ON CONFLICT DO NOTHING;
+VALUES (41, 'Chantre', 'CHA', 5, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (42, 'Scharlachberg', 'Scha', 5, null, null) ON CONFLICT DO NOTHING;
+VALUES (42, 'Scharlachberg', 'SCH', 5, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 -- 6
-VALUES (43, 'Moskovskaya', 'Mo', 6, null, null) ON CONFLICT DO NOTHING;
+VALUES (43, 'Moskovskaya', 'MOS', 6, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (44, 'Smirnoff', 'Smir', 6, null, null) ON CONFLICT DO NOTHING;
+VALUES (44, 'Smirnoff', 'SMI', 6, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (45, 'Feigling', 'Feig', 6, null, null) ON CONFLICT DO NOTHING;
+VALUES (45, 'Feigling', 'FEI', 6, null, null) ON CONFLICT DO NOTHING;
 -- 7
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (46, 'Bacardi Oakheart', 'Oak', 7, null, null) ON CONFLICT DO NOTHING;
+VALUES (46, 'Bacardi Oakheart', 'BACO', 7, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (47, 'Bacardi Razz', 'Razz', 7, null, null) ON CONFLICT DO NOTHING;
+VALUES (47, 'Bacardi Razz', 'BACR', 7, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (48, 'Bacardi White', 'BacW', 7, null, null) ON CONFLICT DO NOTHING;
+VALUES (48, 'Bacardi White', 'BAC', 7, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (49, 'Bacardi Gold', 'BacG', 7, null, null) ON CONFLICT DO NOTHING;
+VALUES (49, 'Bacardi Gold', 'BACG', 7, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (50, 'Bacardi Black', 'BackB', 7, null, null) ON CONFLICT DO NOTHING;
+VALUES (50, 'Bacardi Black', 'BACB', 7, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (51, 'Captain Morgan', 'CM', 7, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (52, 'Hansen Rum ', 'Hans', 7, null, null) ON CONFLICT DO NOTHING;
+VALUES (52, 'Hansen Rum ', 'HAR', 7, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (53, 'Havanna Club 3 Jahre', 'Hav3', 7, null, null) ON CONFLICT DO NOTHING;
+VALUES (53, 'Havanna Club 3 Jahre', 'HA3', 7, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (54, 'Havanna Club 7 Jahre', 'Hav7', 7, null, null) ON CONFLICT DO NOTHING;
+VALUES (54, 'Havanna Club 7 Jahre', 'HA7', 7, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (55, 'Malibu', 'Mal', 7, null, null) ON CONFLICT DO NOTHING;
+VALUES (55, 'Malibu', 'MAL', 7, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (56, 'Meyers Rum', 'Mey', 7, null, null) ON CONFLICT DO NOTHING;
+VALUES (56, 'Myers Rum', 'MYE', 7, null, null) ON CONFLICT DO NOTHING;
 -- 8
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (57, 'Bombay Gin', 'Bom', 8, null, null) ON CONFLICT DO NOTHING;
+VALUES (57, 'Bombay Gin', 'GIN', 8, null, null) ON CONFLICT DO NOTHING;
 -- 9
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (58, 'Martini', 'Mar', 9, null, null) ON CONFLICT DO NOTHING;
+VALUES (58, 'Martini', 'MAR', 9, null, null) ON CONFLICT DO NOTHING;
 -- 10
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (59, 'Becks', 'Bex', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (59, 'Becks', 'BEX', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (60, 'Becks Alkoholfrei', 'BexA', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (60, 'Becks Alkoholfrei', 'BEXA', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (61, 'Becks Gold', 'BexG', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (61, 'Becks Gold', 'BEXG', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (62, 'Becks Ice', 'BexI', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (62, 'Becks Ice', 'BEXI', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (63, 'Becks Green Lemon', 'BexG', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (63, 'Becks Green Lemon', 'BEXL', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (64, 'Jever', 'Jev', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (64, 'Jever', 'JEV', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (65, 'Vitamalz', 'Vit', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (65, 'Vitamalz', 'VIT', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (66, 'Warsteiner', 'War', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (66, 'Warsteiner', 'WAR', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (67, 'Budweiser', 'Bud', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (67, 'Budweiser', 'BUD', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (68, 'Desperados', 'Des', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (68, 'Desperados', 'DES', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (69, 'Franziskaner Naturtrüb', 'FH', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (70, 'Franziskaner Dunkel', 'FHD', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (70, 'Franziskaner Dunkel', 'FD', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (71, 'Franziskaner Kristall', 'FHK', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (71, 'Franziskaner Kristall', 'FK', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (72, 'Erdinger Alkoholfrei', 'EA', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (73, 'Paulaner Alkoholfrei Zitrone', 'PAZ', 10, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (74, 'Bananenweizen', 'BaW', 10, null, null) ON CONFLICT DO NOTHING;
+VALUES (74, 'Bananenweizen', 'BW', 10, null, null) ON CONFLICT DO NOTHING;
+-- TODO Alkoholfreies Bananenweizen not listed - but hint from service
 -- 11
+-- Currently - Becks from barrel are listed as own drinks 04 and 05 -- 04A oder 05A -
+-- in our definition, they would be categories or variants from one drink
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (75, 'Becks', 'BexF', 11, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (76, 'Alster', 'Al', 11, null, null) ON CONFLICT DO NOTHING;
--- Anmerkung: Auf Karte mehrere - Unterschied ?
+-- Hint: Multiple on menu ?
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (77, 'Pitcher Becks', 'PitBex', 11, null, null) ON CONFLICT DO NOTHING;
+VALUES (77, 'Pitcher Becks', 'PIT', 11, null, null) ON CONFLICT DO NOTHING;
 -- 12
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (78, 'Kaffee', 'Kaff', 12, null, null) ON CONFLICT DO NOTHING;
+VALUES (78, 'Kaffee', 'CAF', 12, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
--- Anmerkung: Sorten auflisten oder als Option/Variante ?
+-- Hint: Different sorts listed as own drinks - and category ?
+-- TODO Discuss with Piet?
 VALUES (79, 'Tee', 'Tee', 12, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (80, 'Kakao', 'Kakao', 12, null, null) ON CONFLICT DO NOTHING;
+VALUES (80, 'Kakao', 'KAK', 12, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (81, 'Espresso', 'Ess', 12, null, null) ON CONFLICT DO NOTHING;
+VALUES (81, 'Espresso', 'ESP', 12, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (82, 'Cafe au lait', 'Cauf', 12, null, null) ON CONFLICT DO NOTHING;
+VALUES (82, 'Cafe au lait', 'CAL', 12, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (83, 'Cappuchino', 'Capp', 12, null, null) ON CONFLICT DO NOTHING;
+VALUES (83, 'Cappuchino', 'CAP', 12, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (84, 'Moccacino', 'Moc', 12, null, null) ON CONFLICT DO NOTHING;
+VALUES (84, 'Moccacino', 'MOC', 12, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (85, 'Latte Macchiato', 'Macc', 12, null, null) ON CONFLICT DO NOTHING;
+VALUES (85, 'Latte Macchiato', 'LM', 12, null, null) ON CONFLICT DO NOTHING;
 -- 13
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (86, 'Berenzen Roter', 'Rot', 13, null, null) ON CONFLICT DO NOTHING;
+VALUES (86, 'Berenzen Roter', 'ROT', 13, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (87, 'Berenzen Saurer', 'Saur', 13, null, null) ON CONFLICT DO NOTHING;
+VALUES (87, 'Berenzen Saurer', 'SAUR', 13, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (88, 'Berenzen Apfel', 'Apf', 13, null, null) ON CONFLICT DO NOTHING;
+-- ??
+VALUES (88, 'Berenzen Apfel', 'APF', 13, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (89, 'Ice Mint', 'Blau', 13, null, null) ON CONFLICT DO NOTHING;
+VALUES (89, 'Ice Mint', 'BLA', 13, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (90, 'Grappa', 'Grap', 13, null, null) ON CONFLICT DO NOTHING;
+VALUES (90, 'Grappa', 'GRA', 13, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (91, 'Strothmann Korn', 'Kor', 13, null, null) ON CONFLICT DO NOTHING;
+VALUES (91, 'Strothmann Korn', 'KOR', 13, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (92, 'Springer Urvater', 'Spri', 13, null, null) ON CONFLICT DO NOTHING;
+VALUES (92, 'Springer Urvater', 'SPU', 13, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (93, 'Tequila', 'Teq', 13, null, null) ON CONFLICT DO NOTHING;
+VALUES (93, 'Tequila', 'TEQ', 13, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (94, 'Waldmeister', 'Wald', 13, null, null) ON CONFLICT DO NOTHING;
+VALUES (94, 'Waldmeister', 'GRÜ', 13, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (95, 'Williams Birne', 'Will', 13, null, null) ON CONFLICT DO NOTHING;
+VALUES (95, 'Williams Birne', 'WB', 13, null, null) ON CONFLICT DO NOTHING;
 -- 14
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (96, 'Effect', 'Eff', 14, null, null) ON CONFLICT DO NOTHING;
+VALUES (96, 'Effect', 'EFF', 14, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
 VALUES (97, 'Red Bull', 'RB', 14, null, null) ON CONFLICT DO NOTHING;
 -- 15
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (98, 'Fuze Ice Tea Zitrone', 'FuzeZ', 15, null, null) ON CONFLICT DO NOTHING;
+VALUES (98, 'Fuze Ice Tea Zitrone', 'ETZ', 15, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (99, 'Fuze Ice Tea Pfirsich', 'FuzeP', 15, null, null) ON CONFLICT DO NOTHING;
+VALUES (99, 'Fuze Ice Tea Pfirsich', 'ETP', 15, null, null) ON CONFLICT DO NOTHING;
 -- 16
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (100, 'Ginger Ale', 'Ging', 16, null, null) ON CONFLICT DO NOTHING;
+VALUES (100, 'Ginger Ale', 'GA', 16, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (101, 'Bitter Lemon', 'BitterL', 16, null, null) ON CONFLICT DO NOTHING;
+VALUES (101, 'Bitter Lemon', 'BL', 16, null, null) ON CONFLICT DO NOTHING;
 INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
-VALUES (102, 'Tonic Water', 'Tonic', 16, null, null) ON CONFLICT DO NOTHING;
+VALUES (102, 'Tonic Water', 'TW', 16, null, null) ON CONFLICT DO NOTHING;
+-- 17
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (103, 'Pina Colada', 'PC', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (104, 'Swimming Pool', 'SWP', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (105, 'Planters Punch', 'PP', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (106, 'Zombie', 'ZOM', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (107, 'Mai Tai', 'MT', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (108, 'Sex on the Beach', 'SOB', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (109, 'Tequila Sunrise', 'TS', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (110, 'Long island ice tea', 'LIT', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (111, 'Tropical Mistery', 'TM', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (112, 'Virgin Colada', 'VC', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (113, 'Big Apple', 'BIG', 17, null, null) ON CONFLICT DO NOTHING;
+INSERT INTO items (id, item_name, abbreviation, category, description, special_feature)
+VALUES (114, 'Red berry', 'RBY', 17, null, null) ON CONFLICT DO NOTHING;
+-- 18
+-- TODO - TEA

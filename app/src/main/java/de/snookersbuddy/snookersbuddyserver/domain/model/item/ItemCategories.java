@@ -1,9 +1,9 @@
-package de.snookersbuddy.snookersbuddyserver.domain.model;
+package de.snookersbuddy.snookersbuddyserver.domain.model.item;
 
 public enum ItemCategories {
 
     // TODO: It has to be discussed, if we need this detailed categorisation, or sth. like "Spirituosen" is
-    // TODO: engough for whiskey, liquere,brandy etc. See categorisation on https://boards.jlk.one/?controller=WikiController&action=detail&plugin=wiki&project_id=8&wiki_id=6
+    // TODO: engough for whiskey, liqueur ,brandy etc. See categorisation on https://boards.jlk.one/?controller=WikiController&action=detail&plugin=wiki&project_id=8&wiki_id=6
 
     SOFTDRINK("Alkoholfreies Kaltgetränk", 1),
 
@@ -33,11 +33,11 @@ public enum ItemCategories {
 
     ENERGY("Energy", 14),
 
-    ICETEA("Eistee", 15),
+    ICE_TEA("Eistee", 15),
 
-    SCHWEPPES("Schweppes", 16);
+    SCHWEPPES("Schweppes", 16),
 
-
+    COCKTAIL("Cocktail", 17);
 
     ItemCategories(String categoryName, int id) {
     }
