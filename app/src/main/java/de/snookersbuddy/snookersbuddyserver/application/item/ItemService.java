@@ -10,7 +10,7 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public ItemService(ItemRepository itemRepository){
+    public ItemService(final ItemRepository itemRepository){
         this.itemRepository = itemRepository;
     }
 
