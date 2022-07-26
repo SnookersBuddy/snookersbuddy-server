@@ -20,6 +20,7 @@ public class ItemMapper {
         ItemDTO transferObject = new ItemDTO();
         transferObject.setId(dataObject.getId());
         transferObject.setItemName(dataObject.getName());
+        transferObject.setAbbreviation(dataObject.getAbbreviation());
         // TODO - further properties ? DifferentDTOs? Values like desc. and category not needed here
         return transferObject;
     }
