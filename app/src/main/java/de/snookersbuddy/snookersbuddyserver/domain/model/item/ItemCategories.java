@@ -4,6 +4,7 @@ public enum ItemCategories {
 
     // TODO: It has to be discussed, if we need this detailed categorisation, or sth. like "Spirituosen" is
     // TODO: engough for whiskey, liqueur ,brandy etc. See categorisation on https://boards.jlk.one/?controller=WikiController&action=detail&plugin=wiki&project_id=8&wiki_id=6
+    // TODO: At this point, in my opinion a more detailed view could be helpful, but will definitely not be responsible for problems -> nice to have
 
     SOFTDRINK("Alkoholfreies Kaltgetränk", 1),
 
