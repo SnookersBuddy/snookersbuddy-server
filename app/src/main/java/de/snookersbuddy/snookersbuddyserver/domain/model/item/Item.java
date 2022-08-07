@@ -1,4 +1,4 @@
-package de.snookersbuddy.snookersbuddyserver.domain.model;
+package de.snookersbuddy.snookersbuddyserver.domain.model.item;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,12 +17,19 @@ public class Item implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "item_name")
     private String name;
+
+    @Column(name = "abbreviation")
+    private String abbreviation;
+
+    @Column(name = "category")
+    private Integer category;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "special_feature")
     private String specialFeature;
+
 }
