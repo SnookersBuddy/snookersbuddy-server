@@ -1,6 +1,5 @@
 package de.snookersbuddy.snookersbuddyserver.ports.rest.assignment;
 
-import lombok.Data;
 
 import java.io.Serializable;
 

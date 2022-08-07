@@ -17,7 +17,7 @@ public class AssignmentController {
 
 
     @GetMapping("/api/assignments")
-    public GetAssignmentsOutput getZuordnungen() {
+    public GetAssignmentsOutput getAssignments() {
         final var assignments =  assignmentService.getAllAssignments();
         return new GetAssignmentsOutput(assignments);
     }

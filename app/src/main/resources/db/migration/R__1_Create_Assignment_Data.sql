@@ -1,7 +1,5 @@
--- Insertions for Assignment-Table
-
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (1, 'Billard 1', '1', false);
+VALUES (1, 'Billard 1', '1', false) ON CONFLICT DO NOTHING;;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
 VALUES (2, 'Billard 2', '2', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
@@ -35,22 +33,22 @@ VALUES (16, 'Esstisch 4', 'E4', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
 VALUES (17, 'Esstisch 5', 'E5', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (17, 'Darts 1', 'D1', false) ON CONFLICT DO NOTHING;
+VALUES (18, 'Darts 1', 'D1', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (18, 'Darts 2', 'D2', false) ON CONFLICT DO NOTHING;
+VALUES (19, 'Darts 2', 'D2', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (19, 'Darts 3', 'D3', false) ON CONFLICT DO NOTHING;
+VALUES (20, 'Darts 3', 'D3', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (20, 'Couchtisch 1', 'C1', false) ON CONFLICT DO NOTHING;
+VALUES (21, 'Couchtisch 1', 'C1', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (21, 'Couchtisch 2', 'C2', false) ON CONFLICT DO NOTHING;
+VALUES (22, 'Couchtisch 2', 'C2', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (22, 'Eckbank links', 'Ebl', false) ON CONFLICT DO NOTHING;
+VALUES (23, 'Eckbank links', 'Ebl', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (23, 'Eckbank rechts', 'Ebr', false) ON CONFLICT DO NOTHING;
+VALUES (24, 'Eckbank rechts', 'Ebr', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (24, 'Kicker', 'K', false) ON CONFLICT DO NOTHING;
+VALUES (25, 'Kicker', 'K', false) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (25, 'Thore', 'Thore', true) ON CONFLICT DO NOTHING;
+VALUES (26, 'Thore', 'Thore', true) ON CONFLICT DO NOTHING;
 INSERT INTO assignment (id, assignment_name, abbreviation, custom)
-VALUES (26, 'Rainer W', 'Rainer W', true) ON CONFLICT DO NOTHING;
+VALUES (27, 'Rainer W', 'Rainer W', true) ON CONFLICT DO NOTHING;

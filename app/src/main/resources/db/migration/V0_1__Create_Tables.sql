@@ -11,10 +11,13 @@ create table items
 (
     id              serial not null
         primary key,
+    item_name       varchar(50),
+    abbreviation    varchar(50),
+    category        int,
     description     varchar(255),
-    name            varchar(255),
     special_feature varchar(255)
 );
+
 
 create table options
 (
