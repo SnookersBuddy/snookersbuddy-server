@@ -1,4 +1,4 @@
-package de.snookersbuddy.snookersbuddyserver.domain.model;
+package de.snookersbuddy.snookersbuddyserver.domain.model.option;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,11 +6,11 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Setter
 @Getter
-@Table(name = "variants")
+@Setter
+@Table(name = "options")
 @Entity
-public class Variant implements Serializable {
+public class Option implements Serializable {
 
     @Id
     @Column(name = "id", updatable = false, nullable = false)
@@ -19,4 +19,5 @@ public class Variant implements Serializable {
 
     @Column(name = "name")
     private String name;
+
 }
