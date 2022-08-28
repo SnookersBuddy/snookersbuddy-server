@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@Table(name = "options")
+@Table(name = "option")
 @Entity
 public class Option implements Serializable {
 
@@ -19,5 +19,4 @@ public class Option implements Serializable {
 
     @Column(name = "name")
     private String name;
-
 }

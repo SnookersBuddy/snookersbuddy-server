@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Setter
 @Getter
-@Table(name = "variants")
+@Table(name = "variant")
 @Entity
 public class Variant implements Serializable {
 
@@ -19,4 +19,8 @@ public class Variant implements Serializable {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false)
+    private VariantGroup group;
 }

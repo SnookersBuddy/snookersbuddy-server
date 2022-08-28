@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@Table(name = "items")
+@Table(name = "item")
 @Entity
 public class Item implements Serializable {
 
@@ -31,5 +31,4 @@ public class Item implements Serializable {
 
     @Column(name = "special_feature")
     private String specialFeature;
-
 }
