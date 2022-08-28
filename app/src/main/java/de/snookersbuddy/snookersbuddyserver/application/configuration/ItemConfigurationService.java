@@ -34,8 +34,8 @@ public class ItemConfigurationService {
 
         GetConfigurationOutput getConfigurationOutput = new GetConfigurationOutput();
 
-        List<Variant> variants = variantRepository.getVariantsByItemId();
-        List<Option> options = optionRepository.getOptionsByItemId();
+        List<Variant> variants = variantRepository.getVariants();
+        List<Option> options = optionRepository.getOptions();
         Item selectedItem = itemRepository.getReferenceById(itemId);
 
         getConfigurationOutput.setVariants(buildVariants(variants));

@@ -17,6 +17,6 @@ public class ConfigurationController {
     @GetMapping("/api/item/{itemId}/configuration")
     public GetConfigurationOutput getConfigurationByItemId(@PathVariable("itemId") int itemId) {
 
-        return configurationService.getItemConfigurationById(itemId);
+        return configurationService.getItemConfigurationById((long)itemId);
     }
 }

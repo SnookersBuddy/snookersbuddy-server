@@ -60,18 +60,18 @@ create table variants
 
 create table item_variant
 (
-    id   serial not null
+    id            serial not null
         primary key,
-    item_id integer,
-    variant_id integer,
+    item_id       integer,
+    variant_id    integer,
     default_value boolean
 );
 
 create table item_option
 (
-    id   serial not null
+    id            serial not null
         primary key,
-    item_id integer,
-    option_id integer,
+    item_id       integer,
+    option_id     integer,
     default_value boolean
 );
