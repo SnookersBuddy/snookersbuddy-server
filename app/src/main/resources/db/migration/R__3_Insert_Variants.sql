@@ -10,9 +10,9 @@ values (2, '0,4l', 1)
 on conflict do nothing;
 
 insert into item_variant (item_id, variant_id, default_value)
-values (1, 1, true)
+values (1, 1, false)
 on conflict do nothing;
 
 insert into item_variant (item_id, variant_id, default_value)
-values (1, 2, false)
+values (1, 2, true)
 on conflict do nothing;
