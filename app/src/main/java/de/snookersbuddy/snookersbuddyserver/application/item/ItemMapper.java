@@ -24,4 +24,15 @@ public class ItemMapper {
         // TODO - further properties ? DifferentDTOs? Values like desc. and category not needed here
         return transferObject;
     }
+
+    public static Item mapTransferObjectOnDataObject(ItemDTO itemDTO) {
+        var item = new Item();
+        item.setId(itemDTO.getId());
+        item.setAbbreviation("C");
+        item.setCategory(1);
+        item.setDescription(null);
+        item.setName("Cola");
+        item.setSpecialFeature(null);
+        return item;
+    }
 }

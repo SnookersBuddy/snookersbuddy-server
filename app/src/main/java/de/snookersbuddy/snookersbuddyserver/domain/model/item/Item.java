@@ -12,6 +12,13 @@ import java.io.Serializable;
 @Entity
 public class Item implements Serializable {
 
+    public Item(Long id){
+        this.id = id;
+    }
+
+    public Item(){
+
+    }
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

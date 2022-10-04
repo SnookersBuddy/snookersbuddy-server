@@ -1,6 +1,6 @@
 package de.snookersbuddy.snookersbuddyserver.domain.model.ordereditem;
 
-import de.snookersbuddy.snookersbuddyserver.domain.model.Order;
+import de.snookersbuddy.snookersbuddyserver.domain.model.order.Order;
 import de.snookersbuddy.snookersbuddyserver.domain.model.item.Item;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@Table(name = "odered_items")
+@Table(name = "ordered_items")
 @Entity
 public class OrderedItem implements Serializable {
 
@@ -19,14 +19,14 @@ public class OrderedItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
     @Column(name = "round")
     private int round;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
 

@@ -1,7 +1,7 @@
 create table "ordered_items"
 (
     id              serial primary key,
-    order_id        int references "order",
+    order_id        int references "snooker_order",
     round           int,
     item_id         int references "item",
     chosen_options  varchar(50),

@@ -1,5 +1,6 @@
-package de.snookersbuddy.snookersbuddyserver.domain.model;
+package de.snookersbuddy.snookersbuddyserver.domain.model.order;
 
+import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.Assignment;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@Table(name = "order")
+@Table(name = "snooker_order")
 @Entity
 public class Order implements Serializable {
 
@@ -22,5 +23,9 @@ public class Order implements Serializable {
 
     @Column(name = "end_time")
     private int endTime;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "assignment_id", referencedColumnName = "id")
+    private Assignment assignment;
 
 }

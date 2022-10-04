@@ -1,9 +1,15 @@
 package de.snookersbuddy.snookersbuddyserver.ports.rest.ordereditem;
 
-import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.Assignment;
-import de.snookersbuddy.snookersbuddyserver.domain.model.item.Item;
+import de.snookersbuddy.snookersbuddyserver.application.orderedItem.OrderedItemDTO;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
-public record CreateOrderInput(Assignment assignment, List<Item> items) {
+@Getter
+@Setter
+public class CreateOrderInput implements Serializable {
+
+    private List<OrderedItemDTO> orderedItems;
 }

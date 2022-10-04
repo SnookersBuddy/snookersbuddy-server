@@ -17,9 +17,10 @@ create table item
 );
 
 
-create table "order"
+create table snooker_order
 (
     id         serial primary key,
     end_time   integer,
-    start_time integer
+    start_time integer,
+    assignment_id int references "assignment"
 );
