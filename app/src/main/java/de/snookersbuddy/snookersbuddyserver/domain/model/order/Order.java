@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,4 +29,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "assignment_id", referencedColumnName = "id")
     private Assignment assignment;
 
+    public OrderRound orderRound(List<OrderedItem> orderedItems) {
+        return OrderRound.create(this, orderedItems);
+    }
 }
