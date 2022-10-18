@@ -42,7 +42,8 @@ public class ItemConfigurationService {
         return new GetConfigurationOutput(
                 ItemMapper.mapDataObjectOnTransferObject(selectedItem),
                 buildVariants(allowedVariants),
-                buildOptions(allowedOptions)
+                buildOptions(allowedOptions),
+                1
         );
     }
 
