@@ -11,5 +11,6 @@ public record OrderedItem(long originalId,
                           String description,
                           String specialFeature,
                           List<ChosenOption> chosenOptions,
-                          List<ChosenVariant> chosenVariants) {
+                          List<ChosenVariant> chosenVariants,
+                          long amount) {
 }

@@ -31,7 +31,7 @@ public class Item implements Serializable {
     private String abbreviation;
 
     @Column(name = "category")
-    private Integer category;
+    private int category;
 
     @Column(name = "description")
     private String description;

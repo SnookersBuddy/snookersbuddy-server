@@ -1,5 +1,11 @@
 package de.snookersbuddy.snookersbuddyserver.domain.model.item;
 
+import de.snookersbuddy.snookersbuddyserver.application.item.ItemCategoryDto;
+import lombok.Getter;
+
+import java.util.Arrays;
+
+@Getter
 public enum ItemCategories {
 
     // TODO: It has to be discussed, if we need this detailed categorisation, or sth. like "Spirituosen" is
@@ -40,6 +46,19 @@ public enum ItemCategories {
 
     COCKTAIL("Cocktail", 17);
 
+    private final String categoryName;
+    private final int id;
+
     ItemCategories(String categoryName, int id) {
+        this.categoryName = categoryName;
+        this.id = id;
+    }
+
+    public static ItemCategories fromId(int category) {
+        return Arrays.stream(ItemCategories.values())
+              .filter(itemCategories -> itemCategories.getId() == category)
+              .findFirst()
+              .orElseThrow(() -> new IllegalArgumentException(String.format("Can't find category with id %s",
+                                                                            category)));
     }
 }

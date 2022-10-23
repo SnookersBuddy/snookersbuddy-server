@@ -1,9 +1,11 @@
 package de.snookersbuddy.snookersbuddyserver.application.order;
 
 import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.Assignment;
+import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.AssignmentRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.Order;
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.OrderRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.OrderRoundRepository;
+import de.snookersbuddy.snookersbuddyserver.domain.model.order.RoundState;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -14,10 +16,13 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderRoundRepository orderRoundRepository;
+    private final AssignmentRepository assignmentRepository;
 
-    public OrderService(OrderRepository orderRepository, OrderRoundRepository orderRoundRepository) {
+    public OrderService(OrderRepository orderRepository, OrderRoundRepository orderRoundRepository,
+            AssignmentRepository assignmentRepository) {
         this.orderRepository = orderRepository;
         this.orderRoundRepository = orderRoundRepository;
+        this.assignmentRepository = assignmentRepository;
     }
 
     public void initOrder(Assignment assignment) {
@@ -43,4 +48,13 @@ public class OrderService {
         return orderRoundRepository.findUnpreparedRounds().stream().map(UnpreparedRound::fromEntity).toList();
     }
 
+    public void updateRoundState(long roundId, RoundState state) {
+        final var round = orderRoundRepository.findById(roundId)
+                                              .orElseThrow(() -> new IllegalArgumentException(String.format(
+                                                      "Could not find round with id %s",
+                                                      roundId)));
+
+        round.setState(state);
+        orderRoundRepository.save(round);
+    }
 }
