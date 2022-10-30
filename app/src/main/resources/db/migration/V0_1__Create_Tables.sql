@@ -1,16 +1,14 @@
 create table assignment
 (
-    id              serial not null
-        primary key,
+    id              serial primary key,
     abbreviation    varchar(255),
     assignment_name varchar(255) unique,
     custom          boolean
 );
 
-create table items
+create table item
 (
-    id              serial not null
-        primary key,
+    id              serial primary key,
     item_name       varchar(50),
     abbreviation    varchar(50),
     category        int,
@@ -19,42 +17,10 @@ create table items
 );
 
 
-create table options
+create table snooker_order
 (
-    id   serial not null
-        primary key,
-    name varchar(255)
-);
-
-create table options_allowed_items
-(
-    option_id        serial not null
-        references options,
-    allowed_items_id serial not null
-        unique
-        references items
-);
-
-create table orders
-(
-    id         serial not null
-        primary key,
+    id         serial primary key,
     end_time   integer,
-    start_time integer
+    start_time integer,
+    assignment_id int references "assignment"
 );
-
-create table users
-(
-    id    serial not null
-        primary key,
-    email varchar(255),
-    name  varchar(255)
-);
-
-create table variants
-(
-    id   serial not null
-        primary key,
-    name varchar(255)
-);
-

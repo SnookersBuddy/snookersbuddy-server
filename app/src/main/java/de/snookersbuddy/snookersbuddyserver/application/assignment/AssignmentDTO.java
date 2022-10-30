@@ -14,4 +14,6 @@ public class AssignmentDTO implements Serializable {
     private String abbreviation;
 
     private boolean custom;
+
+    private String displayName;
 }
