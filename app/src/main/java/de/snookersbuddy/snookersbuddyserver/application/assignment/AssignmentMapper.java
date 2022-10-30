@@ -21,6 +21,7 @@ public class AssignmentMapper {
         transferObject.setId(dataObject.getId());
         transferObject.setAbbreviation(dataObject.getAbbreviation());
         transferObject.setCustom(dataObject.isCustom());
+        transferObject.setDisplayName(dataObject.getAssignmentName());
 
         return transferObject;
     }

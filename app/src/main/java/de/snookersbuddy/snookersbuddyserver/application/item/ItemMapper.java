@@ -16,7 +16,7 @@ public class ItemMapper {
         return transferObjects;
     }
 
-    private static ItemDTO mapDataObjectOnTransferObject(Item dataObject) {
+    public static ItemDTO mapDataObjectOnTransferObject(Item dataObject) {
         ItemDTO transferObject = new ItemDTO();
         transferObject.setId(dataObject.getId());
         transferObject.setItemName(dataObject.getName());
