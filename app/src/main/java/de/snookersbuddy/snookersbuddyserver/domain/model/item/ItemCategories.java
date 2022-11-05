@@ -1,6 +1,5 @@
 package de.snookersbuddy.snookersbuddyserver.domain.model.item;
 
-import de.snookersbuddy.snookersbuddyserver.application.item.ItemCategoryDto;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -54,11 +53,11 @@ public enum ItemCategories {
         this.id = id;
     }
 
-    public static ItemCategories fromId(int category) {
+    public static ItemCategories fromId(int categoryId) {
         return Arrays.stream(ItemCategories.values())
-              .filter(itemCategories -> itemCategories.getId() == category)
-              .findFirst()
-              .orElseThrow(() -> new IllegalArgumentException(String.format("Can't find category with id %s",
-                                                                            category)));
+                     .filter(itemCategories -> itemCategories.getId() == categoryId)
+                     .findFirst()
+                     .orElseThrow(() -> new IllegalArgumentException(String.format("Can't find category with id %s",
+                                                                                   categoryId)));
     }
 }

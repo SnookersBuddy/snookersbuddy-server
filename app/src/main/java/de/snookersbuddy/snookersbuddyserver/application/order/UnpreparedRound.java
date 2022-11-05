@@ -2,7 +2,7 @@ package de.snookersbuddy.snookersbuddyserver.application.order;
 
 import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionDTO;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantDTO;
-import de.snookersbuddy.snookersbuddyserver.application.item.ItemCategoryDto;
+import de.snookersbuddy.snookersbuddyserver.application.item.ItemCategoryDTO;
 import de.snookersbuddy.snookersbuddyserver.domain.model.item.ItemCategories;
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.OrderRound;
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.OrderedItem;
@@ -32,7 +32,7 @@ public record UnpreparedRound(long id,
     @Builder
     public record OrderedItemDto(long id,
                                  String name,
-                                 ItemCategoryDto category,
+                                 ItemCategoryDTO category,
                                  List<OptionDTO> options,
                                  List<VariantDTO> variants,
                                  long amount) {
@@ -41,7 +41,7 @@ public record UnpreparedRound(long id,
             final var variantDtos = item.chosenVariants().stream().map(VariantDTO::fromEntity).toList();
             final var optionDtos = item.chosenOptions().stream().map(OptionDTO::fromEntity).toList();
 
-            final var itemCategoryDto = ItemCategoryDto.fromEntity(ItemCategories.fromId(item.category()));
+            final var itemCategoryDto = ItemCategoryDTO.fromEntity(ItemCategories.fromId(item.category()));
 
             return OrderedItemDto.builder()
                                  .id(item.originalId())

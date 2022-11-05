@@ -1,7 +1,6 @@
 package de.snookersbuddy.snookersbuddyserver.application.order;
 
 import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.Assignment;
-import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.AssignmentRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.Order;
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.OrderRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.OrderRoundRepository;
@@ -16,13 +15,10 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderRoundRepository orderRoundRepository;
-    private final AssignmentRepository assignmentRepository;
 
-    public OrderService(OrderRepository orderRepository, OrderRoundRepository orderRoundRepository,
-            AssignmentRepository assignmentRepository) {
+    public OrderService(OrderRepository orderRepository, OrderRoundRepository orderRoundRepository) {
         this.orderRepository = orderRepository;
         this.orderRoundRepository = orderRoundRepository;
-        this.assignmentRepository = assignmentRepository;
     }
 
     public void initOrder(Assignment assignment) {
@@ -32,7 +28,7 @@ public class OrderService {
             newOrder.setAssignment(assignment);
             newOrder.setStartTime((int) new Date().getTime());
             newOrder.setEndTime(0);
-            Long orderId = orderRepository.save(newOrder).getId();
+            orderRepository.save(newOrder);
         }
     }
 
