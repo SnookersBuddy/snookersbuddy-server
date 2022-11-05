@@ -13,10 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record UnpreparedRound(long id,
-                              Instant orderedAt,
-                              Set<OrderedItemDto> orderedItems,
-                              String orderedBy) {
+public record UnpreparedRound(long id, Instant orderedAt, Set<OrderedItemDto> orderedItems, String orderedBy) {
     public static UnpreparedRound fromEntity(OrderRound round) {
         final var orderedItemDtos = round.getOrderedItems()
                                          .stream()
@@ -32,6 +29,7 @@ public record UnpreparedRound(long id,
     @Builder
     public record OrderedItemDto(long id,
                                  String name,
+                                 String comment,
                                  ItemCategoryDTO category,
                                  List<OptionDTO> options,
                                  List<VariantDTO> variants,
@@ -45,6 +43,7 @@ public record UnpreparedRound(long id,
 
             return OrderedItemDto.builder()
                                  .id(item.originalId())
+                                 .comment(item.comment())
                                  .category(itemCategoryDto)
                                  .name(item.name())
                                  .variants(variantDtos)

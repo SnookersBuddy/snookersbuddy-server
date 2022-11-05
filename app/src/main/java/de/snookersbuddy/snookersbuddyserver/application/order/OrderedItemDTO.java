@@ -24,6 +24,7 @@ public record OrderedItemDTO(@NotNull ItemDTO item,
                           .category(item.getCategoryId())
                           .description(item.getDescription())
                           .specialFeature(item.getSpecialFeature())
+                          .comment(comment)
                           .chosenOptions(chosenOptions)
                           .chosenVariants(chosenVariants)
                           .amount(amount)
