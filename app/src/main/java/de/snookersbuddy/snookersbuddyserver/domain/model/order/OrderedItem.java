@@ -10,6 +10,8 @@ public record OrderedItem(long originalId,
                           int category,
                           String description,
                           String specialFeature,
+                          String comment,
                           List<ChosenOption> chosenOptions,
-                          List<ChosenVariant> chosenVariants) {
+                          List<ChosenVariant> chosenVariants,
+                          long amount) {
 }

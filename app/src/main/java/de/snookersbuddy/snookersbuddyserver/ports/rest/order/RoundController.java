@@ -24,8 +24,14 @@ public class RoundController {
         orderService.saveRound(orderedItemDTOS, assignmentId);
     }
 
-    @GetMapping("/api/round")
+    @GetMapping(value = "/api/round", params = "status=unprepared")
     public List<UnpreparedRound> getUnpreparedRounds() {
         return orderService.getUnpreparedRounds();
+    }
+
+    @PutMapping(value = "/api/round/{roundId}/state")
+    public void updateRoundState(@PathVariable("roundId") long roundId,
+            @RequestBody UpdateRoundStateInput input) {
+        orderService.updateRoundState(roundId, input.state());
     }
 }
