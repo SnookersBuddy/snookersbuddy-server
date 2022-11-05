@@ -11,7 +11,8 @@ import java.util.List;
 public record OrderedItemDTO(@NotNull ItemDTO item,
                              @NotNull List<VariantDTO> chosenVariants,
                              @NotNull List<OptionDTO> chosenOptions,
-                             String comment) {
+                             String comment,
+                             long amount) {
 
     public OrderedItem toEntity() {
         final var chosenOptions = chosenOptions().stream().map(OptionDTO::toEntity).toList();
@@ -23,8 +24,10 @@ public record OrderedItemDTO(@NotNull ItemDTO item,
                           .category(item.getCategoryId())
                           .description(item.getDescription())
                           .specialFeature(item.getSpecialFeature())
+                          .comment(comment)
                           .chosenOptions(chosenOptions)
                           .chosenVariants(chosenVariants)
+                          .amount(amount)
                           .build();
     }
 }
