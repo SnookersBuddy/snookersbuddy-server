@@ -11,6 +11,6 @@ public class DevCorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-                .allowedOrigins("http://localhost:4200");
+                .allowedOrigins("http://localhost:4200", "https://sb-staging.rsmidt.dev");
     }
 }
