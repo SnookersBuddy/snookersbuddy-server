@@ -2,7 +2,7 @@ package de.snookersbuddy.snookersbuddyserver.domain.model.item;
 
 import lombok.Data;
 
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable

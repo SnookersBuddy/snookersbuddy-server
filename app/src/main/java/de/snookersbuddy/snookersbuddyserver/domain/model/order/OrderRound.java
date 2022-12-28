@@ -1,11 +1,10 @@
 package de.snookersbuddy.snookersbuddyserver.domain.model.order;
 
-import com.vladmihalcea.hibernate.type.json.JsonType;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import lombok.*;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "order_round")
-@TypeDef(name = "json", typeClass = JsonType.class)
 @Entity
 public class OrderRound {
     @Id
@@ -30,7 +28,7 @@ public class OrderRound {
     private Instant orderedAt = Instant.now();
 
     @Column(name = "ordered_items", nullable = false)
-    @Type(type = "json")
+    @Type(JsonType.class)
     @Builder.Default
     private List<OrderedItem> orderedItems = new ArrayList<>();
 

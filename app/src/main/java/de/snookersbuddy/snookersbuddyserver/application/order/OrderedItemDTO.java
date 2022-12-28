@@ -5,7 +5,7 @@ import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.Va
 import de.snookersbuddy.snookersbuddyserver.application.item.ItemDTO;
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.OrderedItem;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record OrderedItemDTO(@NotNull ItemDTO item,
