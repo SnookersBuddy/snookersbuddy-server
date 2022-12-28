@@ -8,6 +8,6 @@ import java.io.Serializable;
 @Embeddable
 @Data
 public class ItemOptionId implements Serializable {
-    private int itemId;
-    private int optionId;
+    private long itemId;
+    private long optionId;
 }
