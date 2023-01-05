@@ -28,7 +28,7 @@ public class ItemController {
     }
 
     @PostMapping("/api/create-item")
-    public CreateItemsInput createItem(@RequestBody CreateItemsInput createItemsInput){
+    public boolean createItem(@RequestBody CreateItemsInput createItemsInput){
         return itemService.createItem(createItemsInput);
     }
 

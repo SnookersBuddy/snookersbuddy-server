@@ -45,7 +45,7 @@ public class ItemService {
     }
 
     public CreateItemsOutput getAllConfigurationsForItems() {
-        var availableCategories = Arrays.stream(ItemCategories.values()).map(a -> new ItemCategoryDTO(a.getCategoryName(),a.getId())).collect(Collectors.toSet());
+        var availableCategories = Arrays.stream(ItemCategories.values()).map(a -> new ItemCategoryDTO(a.getCategoryName(), a.getId())).collect(Collectors.toSet());
         var availableOptions = optionRepository.findAll();
         var availableVariants = variantRepository.findAll();
 
@@ -70,7 +70,6 @@ public class ItemService {
                 -> s2.getId().compareTo(s1.getId()))).collect(Collectors.toCollection(LinkedHashSet::new));
 
         long groupId = 0;
-        String groupName = "";
         Set<VariantWithDefaultDTO> variantWithDefaultDTOs = new HashSet<>();
         Set<VariantDTO> variants = new HashSet<>();
 
@@ -78,11 +77,10 @@ public class ItemService {
 
             if (groupId != variant.getGroup().getId()) {
 
-
                 groupId = variant.getGroup().getId();
                 var test = new VariantDTO(variant.getId(), variant.getName());
                 variants = new HashSet(Collections.singleton(test));
-                groupName = variant.getGroup().getName();
+                String groupName = variant.getGroup().getName();
 
                 var variantWithDefaultDto = new VariantWithDefaultDTO(groupName, 0, variants);
                 variantWithDefaultDTOs.add(variantWithDefaultDto);
@@ -96,7 +94,8 @@ public class ItemService {
         return variantWithDefaultDTOs;
     }
 
-    public CreateItemsInput createItem(CreateItemsInput createItemsInput) {
+    public boolean createItem(CreateItemsInput createItemsInput) {
+
         try {
             var item = new Item();
             item.setName(createItemsInput.itemName());
@@ -106,6 +105,7 @@ public class ItemService {
 
             item = itemRepository.saveAndFlush(item);
 
+            // save optionReferences for new Item
             for (var option : createItemsInput.selectedOptions()) {
                 var itemOption = new ItemOption();
                 itemOption.setItem(item);
@@ -114,11 +114,12 @@ public class ItemService {
                 itemOptionRepository.save(itemOption);
             }
 
+            // save variantReferences for new Item
             for (var variant : createItemsInput.selectedVariants()) {
-                for (var test : variant.variants()) {
+                for (var singleVariant : variant.variants()) {
                     var itemVariant = new ItemVariant();
                     itemVariant.setItem(item);
-                    itemVariant.setVariant(new Variant(test.id()));
+                    itemVariant.setVariant(new Variant(singleVariant.id()));
                     itemVariant.setDefaultEnabled(itemVariant.getVariant().getId() == variant.defaultVariantId());
                     itemVariantRepository.save(itemVariant);
                 }
@@ -127,9 +128,9 @@ public class ItemService {
 
         } catch (DataIntegrityViolationException d) {
             d.printStackTrace();
-            return null;
+            return false;
         }
-        return null;
+        return true;
     }
 }
 

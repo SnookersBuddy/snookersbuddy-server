@@ -12,10 +12,6 @@ import java.io.Serializable;
 @Entity
 public class Option implements Serializable {
 
-    public Option(){
-
-    }
-
     public Option(long id){
         this.id = id;
     }
