@@ -4,7 +4,7 @@ import de.snookersbuddy.snookersbuddyserver.domain.model.variant.Variant;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Getter
