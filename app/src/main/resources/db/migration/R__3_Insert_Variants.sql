@@ -1,5 +1,5 @@
 insert into variant_group (id, name)
-values (1, 'Groesse')
+values (1, 'Größe')
 on conflict do nothing;
 
 insert into variant_group (id, name)
@@ -13,10 +13,10 @@ insert into variant (id, name, group_id)
 values (2, '0,5l', 1)
 on conflict do nothing;
 insert into variant (id, name, group_id)
-values (3, '0,2cl', 1)
+values (3, '2cl', 1)
 on conflict do nothing;
 insert into variant (id, name, group_id)
-values (4, '0,4cl', 1)
+values (4, '4cl', 1)
 on conflict do nothing;
 
 insert into variant (id, name, group_id)

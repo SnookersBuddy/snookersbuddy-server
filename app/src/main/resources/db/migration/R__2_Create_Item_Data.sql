@@ -265,7 +265,7 @@ insert into item (id, item_name, abbreviation, category, description, special_fe
 values (82, 'Cafe au lait', 'CAL', 12, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
-values (83, 'Cappuchino', 'CAP', 12, null, null)
+values (83, 'Cappuccino', 'CAP', 12, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (84, 'Moccacino', 'MOC', 12, null, null)

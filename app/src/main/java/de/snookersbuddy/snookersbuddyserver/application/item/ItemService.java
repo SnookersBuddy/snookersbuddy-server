@@ -3,12 +3,14 @@ package de.snookersbuddy.snookersbuddyserver.application.item;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionDTO;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantDTO;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantWithDefaultDTO;
-import de.snookersbuddy.snookersbuddyserver.domain.model.item.ItemRepository;
+import de.snookersbuddy.snookersbuddyserver.domain.model.item.*;
 import de.snookersbuddy.snookersbuddyserver.domain.model.option.Option;
 import de.snookersbuddy.snookersbuddyserver.domain.model.option.OptionRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.Variant;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantRepository;
+import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsInput;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsOutput;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,11 +25,17 @@ public class ItemService {
 
     private final OptionRepository optionRepository;
 
-    public ItemService(final ItemRepository itemRepository, VariantRepository variantRepository, OptionRepository optionRepository) {
+    private final ItemVariantRepository itemVariantRepository;
+
+    private final ItemOptionRepository itemOptionRepository;
+
+    public ItemService(final ItemRepository itemRepository, VariantRepository variantRepository, OptionRepository optionRepository, ItemVariantRepository itemVariantRepository, ItemOptionRepository itemOptionRepository) {
 
         this.itemRepository = itemRepository;
         this.variantRepository = variantRepository;
         this.optionRepository = optionRepository;
+        this.itemVariantRepository = itemVariantRepository;
+        this.itemOptionRepository = itemOptionRepository;
     }
 
     public Set<ItemDTO> getAllItems() {
@@ -49,7 +57,7 @@ public class ItemService {
 
         Set<OptionDTO> optionDTOS = new HashSet<>();
         availableOptions.forEach(a -> {
-            optionDTOS.add(new OptionDTO(a.getId(),a.getName(),true));
+            optionDTOS.add(new OptionDTO(a.getId(), a.getName(), true));
         });
         return optionDTOS;
     }
@@ -83,6 +91,42 @@ public class ItemService {
 
         }
         return variantWithDefaultDTOs;
+    }
+
+    public CreateItemsInput createItem(CreateItemsInput createItemsInput) {
+        try {
+            var item = new Item();
+            item.setName(createItemsInput.itemName());
+            item.setDescription(null);
+            item.setCategory(0);
+            item.setSpecialFeature(null);
+
+            item = itemRepository.saveAndFlush(item);
+
+            for (var option : createItemsInput.selectedOptions()) {
+                var itemOption = new ItemOption();
+                itemOption.setItem(item);
+                itemOption.setOption(new Option(option.id()));
+                itemOption.setDefaultEnabled(option.defaultValue());
+                itemOptionRepository.save(itemOption);
+            }
+
+            for (var variant : createItemsInput.selectedVariants()) {
+                for (var test : variant.variants()) {
+                    var itemVariant = new ItemVariant();
+                    itemVariant.setItem(item);
+                    itemVariant.setVariant(new Variant(test.id()));
+                    itemVariant.setDefaultEnabled(itemVariant.getVariant().getId() == variant.defaultVariantId());
+                    itemVariantRepository.save(itemVariant);
+                }
+
+            }
+
+        } catch (DataIntegrityViolationException d) {
+            d.printStackTrace();
+            return null;
+        }
+        return null;
     }
 }
 

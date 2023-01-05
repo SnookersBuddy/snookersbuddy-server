@@ -15,7 +15,7 @@ values (4, 'Kekse')
 on conflict do nothing;
 
 insert into option (id, name)
-values (5, 'Kaffebohnen')
+values (5, 'Kaffeebohnen')
 on conflict do nothing;
 
 ----
