@@ -29,7 +29,8 @@ public class ItemService {
 
     private final ItemOptionRepository itemOptionRepository;
 
-    public ItemService(final ItemRepository itemRepository, VariantRepository variantRepository, OptionRepository optionRepository, ItemVariantRepository itemVariantRepository, ItemOptionRepository itemOptionRepository) {
+    public ItemService(final ItemRepository itemRepository, final VariantRepository variantRepository, final OptionRepository optionRepository,
+                       final ItemVariantRepository itemVariantRepository, final ItemOptionRepository itemOptionRepository) {
 
         this.itemRepository = itemRepository;
         this.variantRepository = variantRepository;
@@ -44,13 +45,14 @@ public class ItemService {
     }
 
     public CreateItemsOutput getAllConfigurationsForItems() {
+        var availableCategories = Arrays.stream(ItemCategories.values()).map(a -> new ItemCategoryDTO(a.getCategoryName(),a.getId())).collect(Collectors.toSet());
         var availableOptions = optionRepository.findAll();
         var availableVariants = variantRepository.findAll();
 
         var variantWithDefaultDto = createAvailableVariants(availableVariants);
         var options = createAvailableOptions(availableOptions);
 
-        return new CreateItemsOutput(options, variantWithDefaultDto);
+        return new CreateItemsOutput(options, variantWithDefaultDto, availableCategories);
     }
 
     private Set<OptionDTO> createAvailableOptions(List<Option> availableOptions) {
@@ -63,8 +65,9 @@ public class ItemService {
     }
 
     private Set<VariantWithDefaultDTO> createAvailableVariants(List<Variant> availableVariants) {
-        Set<Variant> variantsOrderedByGroupingId = availableVariants.stream().sorted(Comparator.comparing(Variant::getGroup, (s1, s2) ->
-                s2.getId().compareTo(s1.getId()))).collect(Collectors.toCollection(LinkedHashSet::new));
+
+        Set<Variant> variantsOrderedByGroupingId = availableVariants.stream().sorted(Comparator.comparing(Variant::getGroup, (s1, s2)
+                -> s2.getId().compareTo(s1.getId()))).collect(Collectors.toCollection(LinkedHashSet::new));
 
         long groupId = 0;
         String groupName = "";
@@ -98,7 +101,7 @@ public class ItemService {
             var item = new Item();
             item.setName(createItemsInput.itemName());
             item.setDescription(null);
-            item.setCategory(0);
+            item.setCategory(createItemsInput.categoryId());
             item.setSpecialFeature(null);
 
             item = itemRepository.saveAndFlush(item);

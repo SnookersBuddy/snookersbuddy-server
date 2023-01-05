@@ -369,3 +369,5 @@ on conflict do nothing;
 -- 18
 -- TODO - Tea
 -- TODO - Snacks ?
+
+SELECT setval('item_id_seq', (SELECT MAX(id) FROM item)+1);
