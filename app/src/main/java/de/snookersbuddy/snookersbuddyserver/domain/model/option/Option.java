@@ -12,6 +12,12 @@ import java.io.Serializable;
 @Entity
 public class Option implements Serializable {
 
+    public Option(long id){
+        this.id = id;
+    }
+
+    public Option(){}
+
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

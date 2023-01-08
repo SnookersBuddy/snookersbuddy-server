@@ -11,6 +11,12 @@ import java.io.Serializable;
 @Table(name = "variant")
 @Entity
 public class Variant implements Serializable {
+    
+    public Variant(long id){
+        this.id = id;
+    }
+
+    public Variant(){}
 
     @Id
     @Column(name = "id", updatable = false, nullable = false)
