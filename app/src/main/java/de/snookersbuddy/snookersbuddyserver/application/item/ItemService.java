@@ -45,12 +45,12 @@ public class ItemService {
     }
 
     public CreateItemsOutput getAllConfigurationsForItems() {
-        var availableCategories = Arrays.stream(ItemCategories.values()).map(a -> new ItemCategoryDTO(a.getCategoryName(), a.getId())).collect(Collectors.toSet());
-        var availableOptions = optionRepository.findAll();
-        var availableVariants = variantRepository.findAll();
+        final var availableCategories = Arrays.stream(ItemCategories.values()).map(a -> new ItemCategoryDTO(a.getCategoryName(), a.getId())).collect(Collectors.toSet());
+        final var availableOptions = optionRepository.findAll();
+        final var availableVariants = variantRepository.findAll();
 
-        var variantWithDefaultDto = createAvailableVariants(availableVariants);
-        var options = createAvailableOptions(availableOptions);
+        final var variantWithDefaultDto = createAvailableVariants(availableVariants);
+        final var options = createAvailableOptions(availableOptions);
 
         return new CreateItemsOutput(options, variantWithDefaultDto, availableCategories);
     }
@@ -75,17 +75,19 @@ public class ItemService {
 
         for (var variant : variantsOrderedByGroupingId) {
 
+            // creates a new VariantDTO if the grouping changes (e.g. "Größe" to "Longdrink")
             if (groupId != variant.getGroup().getId()) {
 
                 groupId = variant.getGroup().getId();
-                var test = new VariantDTO(variant.getId(), variant.getName());
-                variants = new HashSet(Collections.singleton(test));
+                var variantWithSingleVariants = new VariantDTO(variant.getId(), variant.getName());
+                variants = new HashSet(Collections.singleton(variantWithSingleVariants));
                 String groupName = variant.getGroup().getName();
 
                 var variantWithDefaultDto = new VariantWithDefaultDTO(groupName, 0, variants);
                 variantWithDefaultDTOs.add(variantWithDefaultDto);
 
             } else {
+                // add singleVariants to the VariantDTO (e.g. "0,4" to DTO "Größe")
                 variants.add(new VariantDTO(variant.getId(), variant.getName()));
             }
 

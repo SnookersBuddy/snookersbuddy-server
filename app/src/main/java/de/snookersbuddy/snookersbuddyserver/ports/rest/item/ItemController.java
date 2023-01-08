@@ -22,7 +22,7 @@ public class ItemController {
         return new GetItemsOutput(items);
     }
 
-    @GetMapping("/api/create-item")
+    @GetMapping("/api/item-creation-data")
     public CreateItemsOutput fetchCreationData(){
         return itemService.getAllConfigurationsForItems();
     }
