@@ -16,6 +16,8 @@ public class Variant implements Serializable {
         this.id = id;
     }
 
+    public Variant(){}
+
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

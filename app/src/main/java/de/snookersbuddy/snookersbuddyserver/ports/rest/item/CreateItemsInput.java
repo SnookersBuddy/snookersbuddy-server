@@ -5,6 +5,6 @@ import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.Va
 
 import java.util.List;
 
-public record CreateItemsInput(String itemName, List<OptionDTO> selectedOptions,
+public record CreateItemsInput(String itemName, String abbreviation, List<OptionDTO> selectedOptions,
                                List<VariantWithDefaultDTO> selectedVariants, int categoryId) {
 }

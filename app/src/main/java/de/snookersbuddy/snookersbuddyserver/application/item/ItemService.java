@@ -101,6 +101,7 @@ public class ItemService {
         try {
             var item = new Item();
             item.setName(createItemsInput.itemName());
+            item.setAbbreviation(createItemsInput.abbreviation());
             item.setDescription(null);
             item.setCategory(createItemsInput.categoryId());
             item.setSpecialFeature(null);

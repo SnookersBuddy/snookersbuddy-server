@@ -16,6 +16,8 @@ public class Option implements Serializable {
         this.id = id;
     }
 
+    public Option(){}
+
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
