@@ -352,7 +352,7 @@ insert into item (id, item_name, abbreviation, category, description, special_fe
 values (109, 'Tequila Sunrise', 'TS', 17, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
-values (110, 'Long island ice tea', 'LIT', 17, null, null)
+values (110, 'Long Island Ice Tea', 'LIT', 17, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (111, 'Tropical Mistery', 'TM', 17, null, null)
@@ -364,7 +364,7 @@ insert into item (id, item_name, abbreviation, category, description, special_fe
 values (113, 'Big Apple', 'BIG', 17, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
-values (114, 'Red berry', 'RBY', 17, null, null)
+values (114, 'Red Berry', 'RBY', 17, null, null)
 on conflict do nothing;
 -- 18
 -- TODO - Tea
