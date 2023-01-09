@@ -138,12 +138,12 @@ on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (19, 1, true)
+values (190, 1, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (20, 1, true)
+values (200, 1, true)
 on conflict do nothing;
 ----
 
@@ -178,7 +178,7 @@ on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (36, 1, true)
+values (360, 1, true)
 on conflict do nothing;
 ----
 
@@ -193,7 +193,7 @@ on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (40, 1, true)
+values (400, 1, true)
 on conflict do nothing;
 ----
 
@@ -208,42 +208,42 @@ on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (43, 1, true)
+values (430, 1, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (44, 1, true)
+values (440, 1, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (46, 1, true)
+values (460, 1, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (47, 1, true)
+values (470, 1, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (48, 1, true)
+values (480, 1, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (49, 1, true)
+values (490, 1, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (50, 1, true)
+values (500, 1, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (51, 1, true)
+values (510, 1, true)
 on conflict do nothing;
 ----
 
@@ -253,17 +253,17 @@ on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (53, 1, true)
+values (530, 1, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (54, 1, true)
+values (540, 1, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (55, 1, true)
+values (550, 1, true)
 on conflict do nothing;
 ----
 

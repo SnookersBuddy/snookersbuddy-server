@@ -62,7 +62,13 @@ insert into item (id, item_name, abbreviation, category, description, special_fe
 values (19, 'Jack Daniels', 'JD', 3, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (190, 'Jack Daniels - Longdrink', 'JD-L', 3, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (20, 'Jim Beam', 'JB', 3, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (200, 'Jim Beam - Longdrink', 'JB-L', 3, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (21, 'Jim Beam Black', 'JBB', 3, null, null)
@@ -113,6 +119,9 @@ insert into item (id, item_name, abbreviation, category, description, special_fe
 values (36, 'Pernod', 'PER', 4, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (360, 'Pernod - Longdrink', 'PER-L', 4, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (37, 'Ramazotti', 'RAMA', 4, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
@@ -123,6 +132,9 @@ values (39, 'Sambuca Caffe', 'SAMC', 4, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (40, 'Southern Comfort', 'SOU', 4, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (400, 'Southern Comfort - Longdrink', 'SOU-L', 4, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 -- 5
@@ -136,7 +148,13 @@ insert into item (id, item_name, abbreviation, category, description, special_fe
 values (43, 'Moskovskaya', 'MOS', 6, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (430, 'Moskovskaya - Longdrink', 'MOS-L', 6, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (44, 'Smirnoff', 'SMI', 6, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (440, 'Smirnoff - Longdrink', 'SMI-L', 6, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (45, 'Feigling', 'FEI', 6, null, null)
@@ -146,31 +164,61 @@ insert into item (id, item_name, abbreviation, category, description, special_fe
 values (46, 'Bacardi Oakheart', 'BACO', 7, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (460, 'Bacardi Oakheart - Longdrink', 'BACO-L', 7, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (47, 'Bacardi Razz', 'BACR', 7, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (470, 'Bacardi Razz - Longdrink', 'BACR-L', 7, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (48, 'Bacardi White', 'BAC', 7, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (480, 'Bacardi White - Longdrink', 'BAC-L', 7, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (49, 'Bacardi Gold', 'BACG', 7, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (490, 'Bacardi Gold - Longdrink', 'BACG-L', 7, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (50, 'Bacardi Black', 'BACB', 7, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (500, 'Bacardi Black - Longdrink', 'BACB-L', 7, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (51, 'Captain Morgan', 'CM', 7, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (510, 'Captain Morgan - Longdrink', 'CM-L', 7, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (52, 'Hansen Rum ', 'HAR', 7, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
-values (53, 'Havanna Club 3 Jahre', 'HA3', 7, null, null)
+values (53, 'Havanna Club 3', 'HA3', 7, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
-values (54, 'Havanna Club 7 Jahre', 'HA7', 7, null, null)
+values (530, 'Havanna Club 3 - Longdrink', 'HA3-L', 7, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (54, 'Havanna Club 7', 'HA7', 7, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (540, 'Havanna Club 7 - Longdrink', 'HA7-L', 7, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (55, 'Malibu', 'MAL', 7, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (550, 'Malibu - Longdrink', 'MAL-L', 7, null, null)
+on conflict do nothing;
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (550, 'Malibu Longdrink', 'MAL-L', 7, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (56, 'Myers Rum', 'MYE', 7, null, null)
