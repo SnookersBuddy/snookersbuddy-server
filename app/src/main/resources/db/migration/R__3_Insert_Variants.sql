@@ -32,16 +32,19 @@ insert into variant (id, name, group_id)
 values (8, 'Energy', 2)
 on conflict do nothing;
 insert into variant (id, name, group_id)
-values (9, 'O-Saft', 2)
+values (9, 'Orangensaft', 2)
 on conflict do nothing;
 insert into variant (id, name, group_id)
 values (10, 'Ginger Ale', 2)
 on conflict do nothing;
 insert into variant (id, name, group_id)
-values (11, 'Maracuja', 2)
+values (11, 'Maracujasaft', 2)
 on conflict do nothing;
 insert into variant (id, name, group_id)
-values (12, 'Tonic Water', 2)
+values (12, 'Ananassaft', 2)
+on conflict do nothing;
+insert into variant (id, name, group_id)
+values (13, 'Tonic Water', 2)
 on conflict do nothing;
 
 
@@ -191,11 +194,45 @@ on conflict do nothing;
 ----
 
 insert into item_variant (item_id, variant_id, default_value)
+values (190, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (190, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (190, 5, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (190, 7, false)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
 values (20, 3, false)
 on conflict do nothing;
 
 insert into item_variant (item_id, variant_id, default_value)
 values (20, 4, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
+values (200, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (200, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (200, 5, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (200, 7, false)
 on conflict do nothing;
 ----
 
@@ -245,6 +282,19 @@ on conflict do nothing;
 ----
 
 insert into item_variant (item_id, variant_id, default_value)
+values (360, 3, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (360, 4, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (360, 5, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
 values (37, 3, true)
 on conflict do nothing;
 
@@ -281,11 +331,57 @@ on conflict do nothing;
 ----
 
 insert into item_variant (item_id, variant_id, default_value)
+values (400, 3, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (400, 4, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (400, 5, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (400, 7, false)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
 values (43, 3, false)
 on conflict do nothing;
 
 insert into item_variant (item_id, variant_id, default_value)
 values (43, 4, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
+values (430, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (430, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (430, 5, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (430, 6, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (430, 7, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (430, 8, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (430, 9, false)
 on conflict do nothing;
 ----
 
@@ -299,11 +395,69 @@ on conflict do nothing;
 ----
 
 insert into item_variant (item_id, variant_id, default_value)
+values (440, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (440, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (440, 5, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (440, 6, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (440, 7, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (440, 8, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (440, 9, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
 values (46, 3, false)
 on conflict do nothing;
 
 insert into item_variant (item_id, variant_id, default_value)
 values (46, 4, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
+values (460, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (460, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (460, 5, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (460, 6, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (460, 7, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (460, 8, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (460, 9, true)
 on conflict do nothing;
 ----
 
@@ -317,11 +471,69 @@ on conflict do nothing;
 ----
 
 insert into item_variant (item_id, variant_id, default_value)
+values (470, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (470, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (470, 5, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (470, 6, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (470, 7, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (470, 8, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (470, 9, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
 values (48, 3, false)
 on conflict do nothing;
 
 insert into item_variant (item_id, variant_id, default_value)
 values (48, 4, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
+values (480, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (480, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (480, 5, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (480, 6, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (480, 7, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (480, 8, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (480, 9, true)
 on conflict do nothing;
 ----
 
@@ -335,11 +547,69 @@ on conflict do nothing;
 ----
 
 insert into item_variant (item_id, variant_id, default_value)
+values (490, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (490, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (490, 5, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (490, 6, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (490, 7, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (490, 8, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (490, 9, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
 values (50, 3, false)
 on conflict do nothing;
 
 insert into item_variant (item_id, variant_id, default_value)
 values (50, 4, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
+values (500, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (500, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (500, 5, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (500, 6, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (500, 7, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (500, 8, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (500, 9, true)
 on conflict do nothing;
 ----
 
@@ -353,11 +623,53 @@ on conflict do nothing;
 ----
 
 insert into item_variant (item_id, variant_id, default_value)
+values (510, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (510, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (510, 5, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (510, 6, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (510, 7, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (510, 8, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (510, 9, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
 values (53, 3, false)
 on conflict do nothing;
 
 insert into item_variant (item_id, variant_id, default_value)
 values (53, 4, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
+values (530, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (530, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (530, 5, true)
 on conflict do nothing;
 ----
 
@@ -371,11 +683,45 @@ on conflict do nothing;
 ----
 
 insert into item_variant (item_id, variant_id, default_value)
+values (540, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (540, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (540, 5, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
 values (55, 3, false)
 on conflict do nothing;
 
 insert into item_variant (item_id, variant_id, default_value)
 values (55, 4, true)
+on conflict do nothing;
+----
+
+insert into item_variant (item_id, variant_id, default_value)
+values (550, 3, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (550, 4, true)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (550, 7, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (550, 11, false)
+on conflict do nothing;
+
+insert into item_variant (item_id, variant_id, default_value)
+values (550, 12, true)
 on conflict do nothing;
 ----
 
@@ -388,7 +734,7 @@ values (57, 4, true)
 on conflict do nothing;
 
 insert into item_variant (item_id, variant_id, default_value)
-values (57, 12, true)
+values (57, 13, true)
 on conflict do nothing;
 ----
 
