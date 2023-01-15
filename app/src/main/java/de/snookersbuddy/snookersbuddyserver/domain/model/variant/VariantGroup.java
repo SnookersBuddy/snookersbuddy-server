@@ -1,13 +1,9 @@
 package de.snookersbuddy.snookersbuddyserver.domain.model.variant;
 
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
 @Getter
@@ -15,9 +11,17 @@ import jakarta.persistence.Table;
 @Table(name = "variant_group")
 public class VariantGroup {
 
+    public VariantGroup() {
+    }
+
+    public VariantGroup(long id) {
+        this.id = id;
+    }
+
     @Setter(AccessLevel.NONE)
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false)

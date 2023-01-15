@@ -47,6 +47,8 @@ insert into variant (id, name, group_id)
 values (13, 'Tonic Water', 2)
 on conflict do nothing;
 
+SELECT setval('variant_id_seq', (SELECT MAX(id) FROM variant)+1);
+SELECT setval('variant_group_id_seq', (SELECT MAX(id) FROM variant_group)+1);
 
 ----
 insert into item_variant (item_id, variant_id, default_value)

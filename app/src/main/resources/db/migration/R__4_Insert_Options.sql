@@ -18,6 +18,8 @@ insert into option (id, name)
 values (5, 'Kaffeebohnen')
 on conflict do nothing;
 
+SELECT setval('option_id_seq', (SELECT MAX(id) FROM option)+1);
+
 ----
 insert into item_option (item_id, option_id, default_value)
 values (1, 1, true)

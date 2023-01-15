@@ -8,6 +8,7 @@ import de.snookersbuddy.snookersbuddyserver.domain.model.option.Option;
 import de.snookersbuddy.snookersbuddyserver.domain.model.option.OptionRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.Variant;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantRepository;
+import de.snookersbuddy.snookersbuddyserver.ports.rest.admin.GetTableDataOutput;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsInput;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsOutput;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -134,6 +135,25 @@ public class ItemService {
             return false;
         }
         return true;
+    }
+
+    public List<Option> getAllOptions() {
+        return optionRepository.findAll();
+    }
+
+    public List<Variant> getAllVariants(){
+        return variantRepository.findAll();
+    }
+
+    public GetTableDataOutput getTableData() {
+        final var options = optionRepository.findAll();
+        final var variants = variantRepository.findAll();
+        List<ItemDTO> items = new ArrayList<>();
+        itemRepository.findAll().stream().forEach(item -> {
+            items.add(ItemMapper.mapDataObjectOnTransferObject(item));
+        });
+
+        return new GetTableDataOutput(items,options,variants);
     }
 }
 

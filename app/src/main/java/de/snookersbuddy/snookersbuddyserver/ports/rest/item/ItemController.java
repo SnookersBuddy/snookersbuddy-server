@@ -31,6 +31,4 @@ public class ItemController {
     public boolean createItem(@RequestBody CreateItemsInput createItemsInput){
         return itemService.createItem(createItemsInput);
     }
-
-
 }
