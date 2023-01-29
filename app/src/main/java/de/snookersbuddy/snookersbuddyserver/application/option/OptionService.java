@@ -1,9 +1,11 @@
 package de.snookersbuddy.snookersbuddyserver.application.option;
 
+import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionDTO;
 import de.snookersbuddy.snookersbuddyserver.domain.model.item.ItemOptionRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.option.Option;
 import de.snookersbuddy.snookersbuddyserver.domain.model.option.OptionRepository;
-import de.snookersbuddy.snookersbuddyserver.ports.rest.admin.OptionInput;
+import de.snookersbuddy.snookersbuddyserver.ports.rest.option.GetOptionOutput;
+import de.snookersbuddy.snookersbuddyserver.ports.rest.option.OptionInput;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,19 +26,17 @@ public class OptionService {
 
     }
 
-    private Option mapOptionInputOnOption(OptionInput optionToCreate) {
-        var option = new Option();
-        option.setId(optionToCreate.id());
-        option.setName(optionToCreate.name());
+    public GetOptionOutput getOption(long optionId) {
+        var option = optionRepository.getReferenceById(optionId);
+        return GetOptionOutput.fromEntity(OptionDTO.fromEntity(option));
 
-        return option;
     }
 
     public void updateOption(long optionId, OptionInput optionToUpdate) {
 
         final var option = optionRepository.findById(optionId)
                 .orElseThrow(() -> new IllegalArgumentException(String.format(
-                        "Could not find round with id %s",
+                        "Could not find option with id %s",
                         optionId)));
 
         option.setName(optionToUpdate.name());
@@ -47,5 +47,13 @@ public class OptionService {
         //TODO other possibilities ? Cascade-Type- REMOVE not possible at this point
         this.itemOptionRepository.deleteByOptionId(optionId);
         this.optionRepository.deleteById(optionId);
+    }
+
+    private Option mapOptionInputOnOption(OptionInput optionToCreate) {
+        var option = new Option();
+        option.setId(optionToCreate.id());
+        option.setName(optionToCreate.name());
+
+        return option;
     }
 }

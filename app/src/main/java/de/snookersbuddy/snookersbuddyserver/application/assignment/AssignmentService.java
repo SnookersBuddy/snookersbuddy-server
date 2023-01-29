@@ -10,7 +10,7 @@ import java.util.Set;
 @Service
 public class AssignmentService {
 
-    private static final boolean DEFAULT_CUSTOM_VALUE = true;
+    private static final boolean DEFAULT_CUSTOM_VALUE = false;
     private final AssignmentRepository assignmentRepository;
 
     public AssignmentService(AssignmentRepository assignmentRepository) {
@@ -18,8 +18,29 @@ public class AssignmentService {
     }
 
     public Set<AssignmentDTO> getAllAssignments() {
-        final var assignments = AssignmentMapper.mapDataObjectsOnTransferObjects(assignmentRepository.findAll());
+        final var assignments = AssignmentDTO.fromEntitySet(assignmentRepository.findAll());
         return Set.copyOf(assignments);
+    }
+
+    public void saveAssignment(AssignmentInput assignmentToCreate) {
+        var assignment = mapAssignmentInputOnAssignment(assignmentToCreate);
+        assignmentRepository.save(assignment);
+    }
+
+    public void updateAssignment(long assignmentId, AssignmentInput assignmentToUpdate) {
+        final var assignment = assignmentRepository.findById(assignmentId)
+                .orElseThrow(() -> new IllegalArgumentException(String.format(
+                        "Could not find assignment with id %s",
+                        assignmentId)));
+
+        assignment.setAssignmentName(assignmentToUpdate.assignmentName());
+        assignment.setCustom(false);
+        assignment.setAbbreviation(assignmentToUpdate.abbreviation());
+        assignmentRepository.save(assignment);
+    }
+
+    public void deleteAssignment(long assignmentId) {
+        this.assignmentRepository.deleteById(assignmentId);
     }
 
     public boolean createNewCustomAssignment(String name) {
@@ -28,9 +49,16 @@ public class AssignmentService {
             assignmentRepository.save(customAssignment);
             return true;
         } catch (DataIntegrityViolationException d) {
-            // TODO: LOGGING?
             return false;
         }
+    }
+
+    private Assignment mapAssignmentInputOnAssignment(AssignmentInput assignmentInput) {
+        var assignment = new Assignment();
+        assignment.setAssignmentName(assignmentInput.assignmentName());
+        assignment.setCustom(DEFAULT_CUSTOM_VALUE);
+        assignment.setAbbreviation(assignmentInput.abbreviation());
+        return  assignment;
     }
 
     private Assignment createDataObjectByTransferObject(String name) {
@@ -41,5 +69,7 @@ public class AssignmentService {
         return customAssignment;
     }
 
-
+    public AssignmentDTO getAssignment(long id) {
+        return AssignmentDTO.fromEntity(assignmentRepository.getReferenceById(id));
+    }
 }

@@ -1,14 +1,10 @@
 package de.snookersbuddy.snookersbuddyserver.application.configuration.option;
 
-import de.snookersbuddy.snookersbuddyserver.domain.model.order.ChosenOption;
+import de.snookersbuddy.snookersbuddyserver.domain.model.option.Option;
 
-public record OptionDTO(long id, String name, boolean defaultValue) {
+public record OptionDTO(long id, String name) {
 
-    public static OptionDTO fromEntity(ChosenOption option) {
-        return new OptionDTO(option.originalId(), option.name(), option.isSelected());
-    }
-
-    public ChosenOption toEntity() {
-        return new ChosenOption(id, name, defaultValue);
+    public static OptionDTO fromEntity(Option option) {
+        return new OptionDTO(option.getId(), option.getName());
     }
 }

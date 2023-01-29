@@ -1,12 +1,14 @@
 package de.snookersbuddy.snookersbuddyserver.application.variant;
 
+import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.SingleVariantDTO;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantDTO;
 import de.snookersbuddy.snookersbuddyserver.domain.model.item.ItemVariantRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.Variant;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantGroup;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantGroupRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantRepository;
-import de.snookersbuddy.snookersbuddyserver.ports.rest.admin.VariantInput;
+import de.snookersbuddy.snookersbuddyserver.ports.rest.variant.VariantInput;
+import de.snookersbuddy.snookersbuddyserver.ports.rest.variant.VariantOutput;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -55,7 +57,7 @@ public class VariantService {
      */
     public void updateVariant(long variantId, VariantInput variantToUpdate) {
 
-        final var variantGroup = variantGroupRepository.findById(variantToUpdate.variantGroup().id())
+        var variantGroup = variantGroupRepository.findById(variantToUpdate.variantGroup().id())
                 .orElseThrow(() -> new IllegalArgumentException(String.format("Could not find variantGroup with id %s",
                         variantToUpdate.variantGroup().id())));
         variantGroup.setName(variantToUpdate.variantGroup().name());
@@ -73,7 +75,7 @@ public class VariantService {
         variantRepository.saveAll(singleVariants);
     }
 
-    private Variant createNewSingleVariant(long variantId, VariantDTO singleVariant) {
+    private Variant createNewSingleVariant(long variantId, SingleVariantDTO singleVariant) {
         var variant = new Variant();
         variant.setName(singleVariant.name());
         variant.setGroup(new VariantGroup(variantId));
@@ -86,7 +88,7 @@ public class VariantService {
         return variantGroup;
     }
 
-    private Variant mapVariantInputOnSinlgeVariant(VariantDTO singleVariantDto, VariantGroup savedVariantGroup) {
+    private Variant mapVariantInputOnSinlgeVariant(SingleVariantDTO singleVariantDto, VariantGroup savedVariantGroup) {
         var singleVariant = new Variant();
         singleVariant.setGroup(savedVariantGroup);
         singleVariant.setName(singleVariantDto.name());
@@ -98,5 +100,15 @@ public class VariantService {
         itemVariantRepository.deleteByVariantGroupId(variantGroupId);
         variantRepository.deleteByGroupId(variantGroupId);
         variantGroupRepository.deleteById(variantGroupId);
+    }
+
+    public VariantOutput getVariantByGroupId(long groupId) {
+        var variantGroup = variantGroupRepository.getReferenceById(groupId);
+        var variantGroupDTO = VariantGroupDTO.fromEntity(variantGroup.getId(), variantGroup.getName());
+        var variants = variantRepository.getVariantsByGroupId(variantGroup.getId());
+        var variantDTOs = SingleVariantDTO.fromEntitySet(variants);
+        var variantDTO = VariantDTO.fromEntity(variantGroupDTO, variantDTOs);
+        return VariantOutput.fromEntity(variantDTO);
+
     }
 }

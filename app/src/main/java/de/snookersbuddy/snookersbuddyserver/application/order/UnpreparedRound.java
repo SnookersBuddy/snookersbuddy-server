@@ -1,7 +1,7 @@
 package de.snookersbuddy.snookersbuddyserver.application.order;
 
-import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionDTO;
-import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantDTO;
+import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionWithDefaultDTO;
+import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.SingleVariantDTO;
 import de.snookersbuddy.snookersbuddyserver.application.item.ItemCategoryDTO;
 import de.snookersbuddy.snookersbuddyserver.domain.model.item.ItemCategories;
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.OrderRound;
@@ -31,13 +31,13 @@ public record UnpreparedRound(long id, Instant orderedAt, Set<OrderedItemDto> or
                                  String name,
                                  String comment,
                                  ItemCategoryDTO category,
-                                 List<OptionDTO> options,
-                                 List<VariantDTO> variants,
+                                 List<OptionWithDefaultDTO> options,
+                                 List<SingleVariantDTO> variants,
                                  long amount) {
 
         public static OrderedItemDto fromEntity(OrderedItem item) {
-            final var variantDtos = item.chosenVariants().stream().map(VariantDTO::fromEntity).toList();
-            final var optionDtos = item.chosenOptions().stream().map(OptionDTO::fromEntity).toList();
+            final var variantDtos = item.chosenVariants().stream().map(SingleVariantDTO::fromEntity).toList();
+            final var optionDtos = item.chosenOptions().stream().map(OptionWithDefaultDTO::fromEntity).toList();
 
             final var itemCategoryDto = ItemCategoryDTO.fromEntity(ItemCategories.fromId(item.category()));
 

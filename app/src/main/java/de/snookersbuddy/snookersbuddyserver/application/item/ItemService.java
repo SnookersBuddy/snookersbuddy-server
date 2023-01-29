@@ -1,7 +1,7 @@
 package de.snookersbuddy.snookersbuddyserver.application.item;
 
-import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionDTO;
-import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantDTO;
+import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionWithDefaultDTO;
+import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.SingleVariantDTO;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantWithDefaultDTO;
 import de.snookersbuddy.snookersbuddyserver.domain.model.item.*;
 import de.snookersbuddy.snookersbuddyserver.domain.model.option.Option;
@@ -11,6 +11,7 @@ import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantReposito
 import de.snookersbuddy.snookersbuddyserver.ports.rest.admin.GetTableDataOutput;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsInput;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsOutput;
+import de.snookersbuddy.snookersbuddyserver.ports.rest.item.ItemInput;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class ItemService {
     }
 
     public Set<ItemDTO> getAllItems() {
-        final var items = ItemMapper.mapDataObjectsOnTransferObjects(itemRepository.findAll());
+        final var items = ItemDTO.fromEntityList(itemRepository.findAll());
         return Set.copyOf(items);
     }
 
@@ -56,11 +57,11 @@ public class ItemService {
         return new CreateItemsOutput(options, variantWithDefaultDto, availableCategories);
     }
 
-    private Set<OptionDTO> createAvailableOptions(List<Option> availableOptions) {
+    private Set<OptionWithDefaultDTO> createAvailableOptions(List<Option> availableOptions) {
 
-        Set<OptionDTO> optionDTOS = new HashSet<>();
+        Set<OptionWithDefaultDTO> optionDTOS = new HashSet<>();
         availableOptions.forEach(a -> {
-            optionDTOS.add(new OptionDTO(a.getId(), a.getName(), true));
+            optionDTOS.add(new OptionWithDefaultDTO(a.getId(), a.getName(), true));
         });
         return optionDTOS;
     }
@@ -72,7 +73,7 @@ public class ItemService {
 
         long groupId = 0;
         Set<VariantWithDefaultDTO> variantWithDefaultDTOs = new HashSet<>();
-        Set<VariantDTO> variants = new HashSet<>();
+        Set<SingleVariantDTO> variants = new HashSet<>();
 
         for (var variant : variantsOrderedByGroupingId) {
 
@@ -80,7 +81,7 @@ public class ItemService {
             if (groupId != variant.getGroup().getId()) {
 
                 groupId = variant.getGroup().getId();
-                var variantWithSingleVariants = new VariantDTO(variant.getId(), variant.getName());
+                var variantWithSingleVariants = new SingleVariantDTO(variant.getId(), variant.getName());
                 variants = new HashSet(Collections.singleton(variantWithSingleVariants));
                 String groupName = variant.getGroup().getName();
 
@@ -89,7 +90,7 @@ public class ItemService {
 
             } else {
                 // add singleVariants to the VariantDTO (e.g. "0,4" to DTO "Größe")
-                variants.add(new VariantDTO(variant.getId(), variant.getName()));
+                variants.add(new SingleVariantDTO(variant.getId(), variant.getName()));
             }
 
 
@@ -137,23 +138,32 @@ public class ItemService {
         return true;
     }
 
-    public List<Option> getAllOptions() {
-        return optionRepository.findAll();
-    }
-
-    public List<Variant> getAllVariants(){
-        return variantRepository.findAll();
-    }
-
     public GetTableDataOutput getTableData() {
         final var options = optionRepository.findAll();
         final var variants = variantRepository.findAll();
         List<ItemDTO> items = new ArrayList<>();
-        itemRepository.findAll().stream().forEach(item -> {
-            items.add(ItemMapper.mapDataObjectOnTransferObject(item));
+        itemRepository.findAll().forEach(item -> {
+            items.add(ItemDTO.fromEntity(item));
         });
 
-        return new GetTableDataOutput(items,options,variants);
+        return new GetTableDataOutput(items, options, variants);
+    }
+
+    public void deleteItem(long itemId) {
+        this.itemRepository.deleteById(itemId);
+    }
+
+    public void updateItem(long itemId, ItemInput itemToUpdate) {
+        final var item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Could not find variantGroup with id %s",
+                        itemId)));
+        item.setAbbreviation(itemToUpdate.itemDTO().abbreviation());
+        item.setCategory(itemToUpdate.itemDTO().categoryId());
+        item.setDescription(itemToUpdate.itemDTO().description());
+        item.setName(itemToUpdate.itemDTO().itemName());
+        item.setSpecialFeature(itemToUpdate.itemDTO().specialFeature());
+
+        itemRepository.save(item);
     }
 }
 
