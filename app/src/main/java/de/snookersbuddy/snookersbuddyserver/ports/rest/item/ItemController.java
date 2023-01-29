@@ -3,7 +3,6 @@ package de.snookersbuddy.snookersbuddyserver.ports.rest.item;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.ItemConfigurationService;
 import de.snookersbuddy.snookersbuddyserver.application.item.ItemService;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.configuration.GetConfigurationOutput;
-import org.hibernate.engine.config.spi.ConfigurationService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,7 +12,7 @@ public class ItemController {
 
     private final ItemConfigurationService itemConfigurationService;
 
-    public ItemController(final ItemService itemService,final ItemConfigurationService itemConfigurationService) {
+    public ItemController(final ItemService itemService, final ItemConfigurationService itemConfigurationService) {
         this.itemService = itemService;
         this.itemConfigurationService = itemConfigurationService;
     }
@@ -30,11 +29,8 @@ public class ItemController {
     }
 
     @GetMapping("/api/item/{itemId}")
-    public GetConfigurationOutput getItemConfiguration(@PathVariable("itemId")long itemId){
-        // TODO LOAD SINGLE CONFIGURATION
-        var test =itemConfigurationService.getItemConfigurationById(itemId);
-        System.out.println(test);
-        return test;
+    public GetConfigurationOutput getItemConfiguration(@PathVariable("itemId") long itemId) {
+        return itemConfigurationService.getItemConfigurationById(itemId);
     }
 
     @PostMapping("/api/item") //TODO RENAMED IN BE
@@ -44,14 +40,13 @@ public class ItemController {
 
     @DeleteMapping("api/item/{itemId}")
     public void deleteItem(@PathVariable("itemId") long itemId) {
-        //TODO - ITEM-OPTION AND ITEM-VARIANT HAS TO BE DELETED TOO
         this.itemService.deleteItem(itemId);
     }
 
     // TODO - THIS MIGHT NOT BE ENOUGH - IT WILL UPDATE THE ITEM,
     //  BUT NOT ITS VARIANT/ITEM-VARIANT/OPTION/ITEM-OPTION
     @PutMapping("api/item/{itemId}")
-    public void editItem(@PathVariable("itemId") long itemId, @RequestBody ItemInput itemToUpdate) {
+    public void editItem(@PathVariable("itemId") long itemId, @RequestBody CreateItemsInput itemToUpdate) {
         this.itemService.updateItem(itemId, itemToUpdate);
     }
 }

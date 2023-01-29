@@ -11,7 +11,6 @@ import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantReposito
 import de.snookersbuddy.snookersbuddyserver.ports.rest.admin.GetTableDataOutput;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsInput;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsOutput;
-import de.snookersbuddy.snookersbuddyserver.ports.rest.item.ItemInput;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -150,20 +149,55 @@ public class ItemService {
     }
 
     public void deleteItem(long itemId) {
+        // TODO @Ruben Better way such as cascade deletion via Hibernate Annotations through JoinTable ..?
+        this.itemOptionRepository.deleteByItemId(itemId);
+        this.itemVariantRepository.deleteByItemId(itemId);
         this.itemRepository.deleteById(itemId);
     }
 
-    public void updateItem(long itemId, ItemInput itemToUpdate) {
+    public void updateItem(long itemId, CreateItemsInput itemToUpdate) {
         final var item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException(String.format("Could not find variantGroup with id %s",
                         itemId)));
-        item.setAbbreviation(itemToUpdate.itemDTO().abbreviation());
-        item.setCategory(itemToUpdate.itemDTO().categoryId());
-        item.setDescription(itemToUpdate.itemDTO().description());
-        item.setName(itemToUpdate.itemDTO().itemName());
-        item.setSpecialFeature(itemToUpdate.itemDTO().specialFeature());
-
+        item.setAbbreviation(itemToUpdate.abbreviation());
+        item.setName(itemToUpdate.itemName());
+        item.setCategory(itemToUpdate.categoryId());
         itemRepository.save(item);
+
+        // save and update chosen single variants
+        Set<Long> variantIds = new HashSet<>();
+        itemToUpdate.selectedVariants().forEach(variant -> {
+            variant.variants().forEach(singleVariant -> {
+                // TODO - I think this is not clean - set-loading or sth ?
+                var itemVariant = itemVariantRepository.findByItem_IdAndVariant_Id(itemId, singleVariant.id());
+                variantIds.add(singleVariant.id());
+
+                if (itemVariant != null) {
+                    itemVariant.setDefaultEnabled(singleVariant.id() == variant.defaultVariantId());
+                    itemVariantRepository.save(itemVariant);
+                } else {
+                    itemVariantRepository.save(new ItemVariant(item, new Variant(singleVariant.id()), variant.defaultVariantId() == singleVariant.id()));
+                }
+            });
+        });
+        // delete singleVariants which are possible removed from variant
+        itemVariantRepository.deleteItemVariantByItemIdWhereVariantIdIsNotIn(itemId, variantIds);
+
+        // save and update chosen options
+        Set<Long> optionIds = new HashSet<>();
+        itemToUpdate.selectedOptions().forEach(option -> {
+            // TODO - I think this is not clean - set-loading or sth ?
+            var itemOption = itemOptionRepository.findByItem_IdAndOption_Id(itemId, option.id());
+            optionIds.add(option.id());
+            if (itemOption != null) {
+                itemOption.setDefaultEnabled(option.defaultValue());
+                itemOptionRepository.save(itemOption);
+            } else {
+                itemOptionRepository.save(new ItemOption(item, new Option(option.id()), option.defaultValue()));
+            }
+        });
+        // delete options which are possible removed from ItemConfiguration
+        itemOptionRepository.deleteItemOptionByItemIdWhereOptionIdIsNotIn(itemId, optionIds);
     }
 }
 

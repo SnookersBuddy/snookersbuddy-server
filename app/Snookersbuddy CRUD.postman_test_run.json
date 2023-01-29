@@ -1,0 +1,370 @@
+{
+	"id": "dbdf6d9b-cb0d-4a96-ac41-550d5771fb18",
+	"name": "Snookersbuddy CRUD",
+	"timestamp": "2023-01-29T23:03:32.502Z",
+	"collection_id": "0-970928c2-8502-473d-a928-6dca5c356ce6",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "149a8aaf-60fd-4283-a6b9-a7020d4d6996",
+			"name": "Read Option",
+			"url": "http://localhost:28080/api/option/1",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				8
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "f81d010c-0f28-41f5-9bd0-c6a4c32c8484",
+			"name": "Update Option",
+			"url": "http://localhost:28080/api/option/1",
+			"time": 25,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				25
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "5224ed3b-cc81-43aa-b7e0-c47d4267ad44",
+			"name": "Delete Option",
+			"url": "http://localhost:28080/api/option/1",
+			"time": 42,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				42
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "b196c33a-1174-4e0a-b394-7eda315b4a59",
+			"name": "Create Option",
+			"url": "http://localhost:28080/api/option",
+			"time": 16,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				16
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "443ad409-30a3-4248-867a-51cbaa775147",
+			"name": "Read Variant",
+			"url": "http://localhost:28080/api/variant/1",
+			"time": 17,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				17
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "e0cf17de-edc0-4c18-a975-6a1fc9ef3e9e",
+			"name": "Update Variant",
+			"url": "http://localhost:28080/api/variant/1",
+			"time": 41,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				41
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "72b33c41-7744-4375-812a-8ad4c7a29bef",
+			"name": "Delete Variant",
+			"url": "http://localhost:28080/api/variant/1",
+			"time": 42,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				42
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "921cacd9-2d17-4227-93ef-ab59d262ea9d",
+			"name": "Create Variant",
+			"url": "http://localhost:28080/api/variant",
+			"time": 29,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				29
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "cc6b5b9a-b1f5-473b-a45c-65cb0c5fd3e8",
+			"name": "Read Assignment",
+			"url": "http://localhost:28080/api/assignment/1",
+			"time": 11,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				11
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "40b43539-0946-4424-a76f-ef7254c20d83",
+			"name": "Update Assignment",
+			"url": "http://localhost:28080/api/assignment/1",
+			"time": 23,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				23
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "49986879-e906-4976-95d1-89ca41cc1382",
+			"name": "Delete Assignment",
+			"url": "http://localhost:28080/api/assignment/1",
+			"time": 22,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				22
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "65532ef9-bc5a-4098-988c-159e852ba226",
+			"name": "Create Assignment",
+			"url": "http://localhost:28080/api/assignment",
+			"time": 21,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				21
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "518d657b-ef24-4b9f-9c5a-44b4e7037a1e",
+			"name": "Read Item",
+			"url": "http://localhost:28080/api/item/1",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				15
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "8d7b51f7-16bc-4530-9685-5af87829a8e5",
+			"name": "Update Item",
+			"url": "http://localhost:28080/api/item/1",
+			"time": 72,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				72
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "864c4842-22b9-4254-ace6-956522057433",
+			"name": "Delete Item",
+			"url": "http://localhost:28080/api/item/1",
+			"time": 48,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				48
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "aa70efab-0eec-4d0d-ac85-dcae67038bed",
+			"name": "Create Item",
+			"url": "http://localhost:28080/api/item",
+			"time": 74,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				74
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 506,
+	"collection": {
+		"requests": [
+			{
+				"id": "149a8aaf-60fd-4283-a6b9-a7020d4d6996",
+				"method": "GET"
+			},
+			{
+				"id": "f81d010c-0f28-41f5-9bd0-c6a4c32c8484",
+				"method": "PUT"
+			},
+			{
+				"id": "5224ed3b-cc81-43aa-b7e0-c47d4267ad44",
+				"method": "DELETE"
+			},
+			{
+				"id": "b196c33a-1174-4e0a-b394-7eda315b4a59",
+				"method": "POST"
+			},
+			{
+				"id": "443ad409-30a3-4248-867a-51cbaa775147",
+				"method": "GET"
+			},
+			{
+				"id": "e0cf17de-edc0-4c18-a975-6a1fc9ef3e9e",
+				"method": "PUT"
+			},
+			{
+				"id": "72b33c41-7744-4375-812a-8ad4c7a29bef",
+				"method": "DELETE"
+			},
+			{
+				"id": "921cacd9-2d17-4227-93ef-ab59d262ea9d",
+				"method": "POST"
+			},
+			{
+				"id": "cc6b5b9a-b1f5-473b-a45c-65cb0c5fd3e8",
+				"method": "GET"
+			},
+			{
+				"id": "40b43539-0946-4424-a76f-ef7254c20d83",
+				"method": "PUT"
+			},
+			{
+				"id": "49986879-e906-4976-95d1-89ca41cc1382",
+				"method": "DELETE"
+			},
+			{
+				"id": "65532ef9-bc5a-4098-988c-159e852ba226",
+				"method": "POST"
+			},
+			{
+				"id": "518d657b-ef24-4b9f-9c5a-44b4e7037a1e",
+				"method": "GET"
+			},
+			{
+				"id": "8d7b51f7-16bc-4530-9685-5af87829a8e5",
+				"method": "PUT"
+			},
+			{
+				"id": "864c4842-22b9-4254-ace6-956522057433",
+				"method": "DELETE"
+			},
+			{
+				"id": "aa70efab-0eec-4d0d-ac85-dcae67038bed",
+				"method": "POST"
+			}
+		]
+	}
+}
