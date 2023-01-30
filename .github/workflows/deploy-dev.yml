@@ -8,7 +8,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-
 jobs:
   build-and-push-image:
     name: Build and push the Docker image
@@ -59,4 +58,4 @@ jobs:
           username: ${{ secrets.STAGING_SSH_USERNAME }}
           key: ${{ secrets.STAGING_SSH_KEY }}
           # Script ist wayne, weil der Server das ssh command restricted
-          script: whoami
+          script: deploy dev
