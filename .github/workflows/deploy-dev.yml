@@ -1,4 +1,4 @@
-name: Build the latest server and deploy its image to Github Packages
+name: "[DEV] Build & Deploy"
 
 on:
   workflow_dispatch:
