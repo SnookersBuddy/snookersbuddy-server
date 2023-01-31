@@ -43,8 +43,6 @@ public class ItemController {
         this.itemService.deleteItem(itemId);
     }
 
-    // TODO - THIS MIGHT NOT BE ENOUGH - IT WILL UPDATE THE ITEM,
-    //  BUT NOT ITS VARIANT/ITEM-VARIANT/OPTION/ITEM-OPTION
     @PutMapping("api/item/{itemId}")
     public void editItem(@PathVariable("itemId") long itemId, @RequestBody CreateItemsInput itemToUpdate) {
         this.itemService.updateItem(itemId, itemToUpdate);

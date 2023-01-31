@@ -71,7 +71,7 @@ public class VariantService {
             variant.setName(singleVariant.name());
             singleVariants.add(variant);
         }
-        // TODO Handle deleted singleVariants - how ? Delete where id is not in ? Enum state REMOVED,EDITED,ADDED?
+        // TODO Handle deleted singleVariants
         variantRepository.saveAll(singleVariants);
     }
 
