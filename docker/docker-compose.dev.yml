@@ -2,14 +2,14 @@ version: "3"
 services:
   db:
     image: postgres:14-alpine
-    container_name: snookers-sells-db
+    container_name: snookersbuddy-db
     environment:
       POSTGRES_USER: snookers
       POSTGRES_PASSWORD: snookers
     volumes:
-      - snookers-sells-db:/var/lib/postgresql/data
+      - snookersbuddy-db:/var/lib/postgresql/data
     ports:
       - "25432:5432" # Avoid conflict with other Postgres installations (e.g. system packaged).
 
 volumes:
-  snookers-sells-db:
+  snookersbuddy-db:
