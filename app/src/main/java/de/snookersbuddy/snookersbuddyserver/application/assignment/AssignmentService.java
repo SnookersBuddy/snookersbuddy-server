@@ -53,7 +53,7 @@ public class AssignmentService {
         }
     }
 
-    private Assignment mapAssignmentInputOnAssignment(AssignmentInput assignmentInput) {
+    private Assignment mapAssignmentInputOnAssignment(final AssignmentInput assignmentInput) {
         var assignment = new Assignment();
         assignment.setAssignmentName(assignmentInput.assignmentName());
         assignment.setCustom(DEFAULT_CUSTOM_VALUE);

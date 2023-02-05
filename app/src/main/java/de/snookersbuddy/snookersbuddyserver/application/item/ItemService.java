@@ -149,15 +149,12 @@ public class ItemService {
     }
 
     public void deleteItem(long itemId) {
-        // TODO @Ruben Better way such as cascade deletion via Hibernate Annotations through JoinTable ..?
-        this.itemOptionRepository.deleteByItemId(itemId);
-        this.itemVariantRepository.deleteByItemId(itemId);
         this.itemRepository.deleteById(itemId);
     }
 
     public void updateItem(long itemId, CreateItemsInput itemToUpdate) {
         final var item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Could not find variantGroup with id %s",
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Could not find Item with id %s",
                         itemId)));
         item.setAbbreviation(itemToUpdate.abbreviation());
         item.setName(itemToUpdate.itemName());
@@ -168,7 +165,7 @@ public class ItemService {
         Set<Long> variantIds = new HashSet<>();
         itemToUpdate.selectedVariants().forEach(variant -> {
             variant.variants().forEach(singleVariant -> {
-                // TODO - I think this is not clean - set-loading or sth ?
+                // build diff of deleted or added singleVariants
                 var itemVariant = itemVariantRepository.findByItem_IdAndVariant_Id(itemId, singleVariant.id());
                 variantIds.add(singleVariant.id());
 
@@ -186,7 +183,6 @@ public class ItemService {
         // save and update chosen options
         Set<Long> optionIds = new HashSet<>();
         itemToUpdate.selectedOptions().forEach(option -> {
-            // TODO - I think this is not clean - set-loading or sth ?
             var itemOption = itemOptionRepository.findByItem_IdAndOption_Id(itemId, option.id());
             optionIds.add(option.id());
             if (itemOption != null) {

@@ -38,7 +38,7 @@ public class VariantService {
      *
      * @param variantInput
      */
-    public void saveVariant(VariantInput variantInput) {
+    public void saveVariant(final VariantInput variantInput) {
 
         var variantGroup = mapVariantInputOnVariantGroup(variantInput.variantGroup());
         var savedVariantGroup = variantGroupRepository.saveAndFlush(variantGroup);
@@ -96,9 +96,7 @@ public class VariantService {
     }
 
     public void deleteVariant(long variantGroupId) {
-        //TODO other possibilities ? Cascade-Type- REMOVE not possible at this point
-        itemVariantRepository.deleteByVariantGroupId(variantGroupId);
-        variantRepository.deleteByGroupId(variantGroupId);
+
         variantGroupRepository.deleteById(variantGroupId);
     }
 

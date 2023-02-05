@@ -33,7 +33,7 @@ public class ItemController {
         return itemConfigurationService.getItemConfigurationById(itemId);
     }
 
-    @PostMapping("/api/item") //TODO RENAMED IN BE
+    @PostMapping("/api/item")
     public boolean createItem(@RequestBody CreateItemsInput createItemsInput) {
         return itemService.createItem(createItemsInput);
     }

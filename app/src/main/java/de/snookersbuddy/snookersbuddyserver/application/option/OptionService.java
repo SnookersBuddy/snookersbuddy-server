@@ -44,8 +44,6 @@ public class OptionService {
     }
 
     public void deleteOption(long optionId) {
-        //TODO other possibilities ? Cascade-Type- REMOVE not possible at this point
-        this.itemOptionRepository.deleteByOptionId(optionId);
         this.optionRepository.deleteById(optionId);
     }
 

@@ -2,9 +2,9 @@ package de.snookersbuddy.snookersbuddyserver.application.assignment;
 
 import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.Assignment;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public record AssignmentDTO(long id, String abbreviation, boolean custom, String displayName) {
 
@@ -13,9 +13,6 @@ public record AssignmentDTO(long id, String abbreviation, boolean custom, String
     }
 
     public static Set<AssignmentDTO> fromEntitySet(List<Assignment> assignments) {
-        Set<AssignmentDTO> assignmentDTOS = new HashSet<>();
-        assignments.forEach(assignment ->
-                assignmentDTOS.add(fromEntity(assignment)));
-        return assignmentDTOS;
+        return assignments.stream().map(AssignmentDTO::fromEntity).collect(Collectors.toSet());
     }
 }
