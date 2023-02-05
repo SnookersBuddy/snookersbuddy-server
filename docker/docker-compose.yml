@@ -1,7 +1,7 @@
 version: "3"
 services:
   backend:
-    image: snookers-sells-be
+    image: snookersbuddy-be
     build: ../app
     environment:
       SS_DB_HOST: db:5432
