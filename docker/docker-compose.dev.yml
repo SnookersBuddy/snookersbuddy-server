@@ -2,6 +2,7 @@ version: "3"
 services:
   db:
     image: postgres:14-alpine
+    container_name: snookers-sells-db
     environment:
       POSTGRES_USER: snookers
       POSTGRES_PASSWORD: snookers
