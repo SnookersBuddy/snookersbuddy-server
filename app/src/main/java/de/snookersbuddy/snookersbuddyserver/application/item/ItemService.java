@@ -3,10 +3,13 @@ package de.snookersbuddy.snookersbuddyserver.application.item;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionWithDefaultDTO;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.SingleVariantDTO;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantWithDefaultDTO;
+import de.snookersbuddy.snookersbuddyserver.application.variant.VariantGroupDTO;
+import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.AssignmentRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.item.*;
 import de.snookersbuddy.snookersbuddyserver.domain.model.option.Option;
 import de.snookersbuddy.snookersbuddyserver.domain.model.option.OptionRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.Variant;
+import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantGroupRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantRepository;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.admin.GetTableDataOutput;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsInput;
@@ -24,20 +27,27 @@ public class ItemService {
 
     private final VariantRepository variantRepository;
 
+    private final VariantGroupRepository variantGroupRepository;
+
     private final OptionRepository optionRepository;
 
     private final ItemVariantRepository itemVariantRepository;
 
     private final ItemOptionRepository itemOptionRepository;
 
+    private final AssignmentRepository assignmentRepository;
+
     public ItemService(final ItemRepository itemRepository, final VariantRepository variantRepository, final OptionRepository optionRepository,
-                       final ItemVariantRepository itemVariantRepository, final ItemOptionRepository itemOptionRepository) {
+                       final ItemVariantRepository itemVariantRepository, final ItemOptionRepository itemOptionRepository,
+                       final VariantGroupRepository variantGroupRepository, final AssignmentRepository assignmentRepository) {
 
         this.itemRepository = itemRepository;
         this.variantRepository = variantRepository;
         this.optionRepository = optionRepository;
         this.itemVariantRepository = itemVariantRepository;
         this.itemOptionRepository = itemOptionRepository;
+        this.variantGroupRepository = variantGroupRepository;
+        this.assignmentRepository = assignmentRepository;
     }
 
     public Set<ItemDTO> getAllItems() {
@@ -138,14 +148,16 @@ public class ItemService {
     }
 
     public GetTableDataOutput getTableData() {
+        final var assignments = assignmentRepository.findAll();
         final var options = optionRepository.findAll();
         final var variants = variantRepository.findAll();
+        final var variantGroups = variantGroupRepository.findAll().stream().map(a
+                -> VariantGroupDTO.fromEntity(a.getId(), a.getName())).collect(Collectors.toSet());
         List<ItemDTO> items = new ArrayList<>();
-        itemRepository.findAll().forEach(item -> {
-            items.add(ItemDTO.fromEntity(item));
+        itemRepository.findAll().forEach(item -> { items.add(ItemDTO.fromEntity(item));
         });
 
-        return new GetTableDataOutput(items, options, variants);
+        return new GetTableDataOutput(items, options, variantGroups, assignments);
     }
 
     public void deleteItem(long itemId) {
