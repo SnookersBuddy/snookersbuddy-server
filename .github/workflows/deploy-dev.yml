@@ -1,4 +1,4 @@
-name: Build the latest server and deploy its image to Github Packages
+name: "[DEV] Build & Deploy"
 
 on:
   workflow_dispatch:
@@ -8,7 +8,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-
 jobs:
   build-and-push-image:
     name: Build and push the Docker image
@@ -43,7 +42,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   redeploy:
-    name: Redeploy the application in staging
+    name: Redeploy the application in dev
     needs: [build-and-push-image]
     runs-on: ubuntu-latest
     permissions:
@@ -51,7 +50,7 @@ jobs:
       packages: read
 
     steps:
-      - name: Trigger staging application restart
+      - name: Trigger dev application restart
         # DIESE VERSION NICHT AENDERN, FOR REAL!!!! FRAGT RUBEN VORHER
         uses: appleboy/ssh-action@dce9d565de8d876c11d93fa4fe677c0285a66d78
         with:
@@ -59,4 +58,4 @@ jobs:
           username: ${{ secrets.STAGING_SSH_USERNAME }}
           key: ${{ secrets.STAGING_SSH_KEY }}
           # Script ist wayne, weil der Server das ssh command restricted
-          script: whoami
+          script: deploy dev

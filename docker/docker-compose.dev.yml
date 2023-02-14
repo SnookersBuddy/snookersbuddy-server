@@ -1,14 +1,21 @@
 version: "3"
+networks:
+  snookersbuddy:
+    name: snookersbuddy-local
+    driver: bridge
 services:
   db:
     image: postgres:14-alpine
+    container_name: snookersbuddy-db
     environment:
       POSTGRES_USER: snookers
       POSTGRES_PASSWORD: snookers
+    networks:
+      - snookersbuddy
     volumes:
-      - snookers-sells-db:/var/lib/postgresql/data
+      - snookersbuddy-db:/var/lib/postgresql/data
     ports:
       - "25432:5432" # Avoid conflict with other Postgres installations (e.g. system packaged).
 
 volumes:
-  snookers-sells-db:
+  snookersbuddy-db:

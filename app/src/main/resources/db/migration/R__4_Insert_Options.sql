@@ -18,7 +18,9 @@ insert into option (id, name)
 values (5, 'Kaffeebohnen')
 on conflict do nothing;
 
-SELECT setval('option_id_seq', (SELECT MAX(id) FROM option)+1);
+insert into option (id, name)
+values (6, 'Sahne')
+on conflict do nothing;
 
 ----
 insert into item_option (item_id, option_id, default_value)
@@ -285,27 +287,49 @@ on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (78, 2, true)
+values (68, 2, true)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
+values (78, 2, true)
+on conflict do nothing;
+
+insert into item_option (item_id, option_id, default_value)
 values (78, 4, false)
+on conflict do nothing;
+
+insert into item_option (item_id, option_id, default_value)
+values (78, 5, false)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
 values (79, 4, true)
 on conflict do nothing;
-----
 
 insert into item_option (item_id, option_id, default_value)
-values (80, 2, true)
+values (79, 5, false)
 on conflict do nothing;
 ----
 
 insert into item_option (item_id, option_id, default_value)
-values (68, 2, true)
+values (82, 2, true)
+on conflict do nothing;
+----
+
+insert into item_option (item_id, option_id, default_value)
+values (83, 2, true)
+on conflict do nothing;
+----
+
+insert into item_option (item_id, option_id, default_value)
+values (84, 2, true)
+on conflict do nothing;
+----
+
+insert into item_option (item_id, option_id, default_value)
+values (85, 2, true)
 on conflict do nothing;
 ----
 
@@ -328,3 +352,6 @@ insert into item_option (item_id, option_id, default_value)
 values (99, 1, true)
 on conflict do nothing;
 ----
+
+SELECT setval('option_id_seq', (SELECT MAX(id) FROM option)+1);
+

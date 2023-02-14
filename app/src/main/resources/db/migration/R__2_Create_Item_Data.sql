@@ -233,7 +233,7 @@ values (58, 'Martini', 'MAR', 9, null, null)
 on conflict do nothing;
 -- 10
 insert into item (id, item_name, abbreviation, category, description, special_feature)
-values (59, 'Becks', 'BEX', 10, null, null)
+values (59, 'Becks (Flasche)', 'BEX', 10, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (60, 'Becks Alkoholfrei', 'BEXA', 10, null, null)
@@ -285,14 +285,10 @@ on conflict do nothing;
 -- Currently - Becks from barrel are listed as own drinks 04 and 05 -- 04A oder 05A -
 -- in our definition, they would be categories or variants from one drink
 insert into item (id, item_name, abbreviation, category, description, special_feature)
-values (75, 'Becks', 'BexF', 11, null, null)
+values (75, 'Becks (gezapft)', 'BexF', 11, null, null)
 on conflict do nothing;
 insert into item (id, item_name, abbreviation, category, description, special_feature)
 values (76, 'Alster', 'Al', 11, null, null)
-on conflict do nothing;
--- Hint: Multiple on menu ?
-insert into item (id, item_name, abbreviation, category, description, special_feature)
-values (77, 'Pitcher Becks', 'PIT', 11, null, null)
 on conflict do nothing;
 -- 12
 insert into item (id, item_name, abbreviation, category, description, special_feature)
