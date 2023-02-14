@@ -7,4 +7,5 @@ public record ItemCategoryDTO(String name, long id) {
     public static ItemCategoryDTO fromEntity(ItemCategories category) {
         return new ItemCategoryDTO(category.getCategoryName(), category.getId());
     }
+
 }

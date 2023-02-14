@@ -64,7 +64,6 @@ insert into variant (id, name, group_id)
 values (17, 'Minze', 3)
 on conflict do nothing;
 
-
 ----
 insert into item_variant (item_id, variant_id, default_value)
 values (1, 1, false)
@@ -852,3 +851,6 @@ on conflict do nothing;
 insert into item_variant (item_id, variant_id, default_value)
 values (99, 2, true)
 on conflict do nothing;
+
+SELECT setval('variant_id_seq', (SELECT MAX(id) FROM variant)+1);
+SELECT setval('variant_group_id_seq', (SELECT MAX(id) FROM variant_group)+1);

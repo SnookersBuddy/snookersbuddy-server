@@ -1,13 +1,13 @@
 package de.snookersbuddy.snookersbuddyserver.application.configuration.variant;
 
-import de.snookersbuddy.snookersbuddyserver.domain.model.order.ChosenVariant;
+import de.snookersbuddy.snookersbuddyserver.application.variant.VariantGroupDTO;
 
-public record VariantDTO(long id, String name) {
-    public static VariantDTO fromEntity(ChosenVariant variant) {
-        return new VariantDTO(variant.originalId(), variant.name());
+import java.util.Set;
+
+public record VariantDTO(VariantGroupDTO variantGroup, Set<SingleVariantDTO> singleVariants) {
+
+    public static VariantDTO fromEntity(VariantGroupDTO variantGroup, Set<SingleVariantDTO> singleVariants) {
+        return new VariantDTO(variantGroup, singleVariants);
     }
 
-    public ChosenVariant toEntity() {
-        return new ChosenVariant(id, name);
-    }
 }

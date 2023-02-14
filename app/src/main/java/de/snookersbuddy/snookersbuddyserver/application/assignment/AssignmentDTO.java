@@ -1,19 +1,18 @@
 package de.snookersbuddy.snookersbuddyserver.application.assignment;
 
-import lombok.Getter;
-import lombok.Setter;
+import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.Assignment;
 
-import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-@Getter
-@Setter
-public class AssignmentDTO implements Serializable {
+public record AssignmentDTO(long id, String abbreviation, boolean custom, String displayName) {
 
-    private Long id;
+    public static AssignmentDTO fromEntity(Assignment assignment) {
+        return new AssignmentDTO(assignment.getId(), assignment.getAbbreviation(), assignment.isCustom(), assignment.getAssignmentName());
+    }
 
-    private String abbreviation;
-
-    private boolean custom;
-
-    private String displayName;
+    public static Set<AssignmentDTO> fromEntitySet(List<Assignment> assignments) {
+        return assignments.stream().map(AssignmentDTO::fromEntity).collect(Collectors.toSet());
+    }
 }

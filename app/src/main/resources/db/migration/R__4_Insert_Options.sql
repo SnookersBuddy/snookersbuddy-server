@@ -352,3 +352,6 @@ insert into item_option (item_id, option_id, default_value)
 values (99, 1, true)
 on conflict do nothing;
 ----
+
+SELECT setval('option_id_seq', (SELECT MAX(id) FROM option)+1);
+

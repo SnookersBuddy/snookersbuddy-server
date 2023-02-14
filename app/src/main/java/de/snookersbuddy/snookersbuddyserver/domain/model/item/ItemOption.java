@@ -5,12 +5,25 @@ import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "item_option")
 public class ItemOption {
+
+    public ItemOption(){
+
+    }
+
+    public ItemOption(Item item, Option option, boolean isDefaultEnabled){
+        this.item = item;
+        this.option = option;
+        this.isDefaultEnabled = isDefaultEnabled;
+    }
+
     @EmbeddedId
     private ItemOptionId id = new ItemOptionId();
 

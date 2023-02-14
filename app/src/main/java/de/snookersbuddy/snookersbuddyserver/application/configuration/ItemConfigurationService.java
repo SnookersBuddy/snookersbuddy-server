@@ -1,10 +1,9 @@
 package de.snookersbuddy.snookersbuddyserver.application.configuration;
 
-import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionDTO;
-import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionMapper;
-import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantMapper;
+import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionWithDefaultDTO;
+import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.SingleVariantDTO;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantWithDefaultDTO;
-import de.snookersbuddy.snookersbuddyserver.application.item.ItemMapper;
+import de.snookersbuddy.snookersbuddyserver.application.item.ItemDTO;
 import de.snookersbuddy.snookersbuddyserver.domain.model.item.*;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.configuration.GetConfigurationOutput;
 import org.springframework.stereotype.Service;
@@ -40,15 +39,15 @@ public class ItemConfigurationService {
         final var selectedItem = itemRepository.getReferenceById(itemId);
 
         return new GetConfigurationOutput(
-                ItemMapper.mapDataObjectOnTransferObject(selectedItem),
+                ItemDTO.fromEntity(selectedItem),
                 buildVariants(allowedVariants),
                 buildOptions(allowedOptions),
                 1
         );
     }
 
-    private Set<OptionDTO> buildOptions(Set<ItemOption> itemOptions) {
-        return itemOptions.stream().map(OptionMapper::mapDataObjectOnTransferObject).collect(Collectors.toSet());
+    private Set<OptionWithDefaultDTO> buildOptions(Set<ItemOption> itemOptions) {
+        return itemOptions.stream().map(OptionWithDefaultDTO::fromEntity).collect(Collectors.toSet());
     }
 
     private Set<VariantWithDefaultDTO> buildVariants(Set<ItemVariant> itemVariants) {
@@ -72,7 +71,7 @@ public class ItemConfigurationService {
                     return new VariantWithDefaultDTO(
                             entry.getKey(),
                             defaultValueId,
-                            VariantMapper.mapVariantsToDTO(entry.getValue()
+                            SingleVariantDTO.fromEntitySet(entry.getValue()
                                     .stream()
                                     .map(ItemVariant::getVariant)
                                     .collect(Collectors.toSet()))

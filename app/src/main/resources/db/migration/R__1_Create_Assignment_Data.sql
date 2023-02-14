@@ -79,3 +79,5 @@ on conflict do nothing;
 insert into assignment (id, assignment_name, abbreviation, custom)
 values (27, 'Rainer W', 'Rainer W', true)
 on conflict do nothing;
+
+SELECT setval('assignment_id_seq', (SELECT MAX(id) FROM assignment)+1);

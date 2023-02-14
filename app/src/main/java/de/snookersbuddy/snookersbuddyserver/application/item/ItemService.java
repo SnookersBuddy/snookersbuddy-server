@@ -1,13 +1,17 @@
 package de.snookersbuddy.snookersbuddyserver.application.item;
 
-import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionDTO;
-import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantDTO;
+import de.snookersbuddy.snookersbuddyserver.application.configuration.option.OptionWithDefaultDTO;
+import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.SingleVariantDTO;
 import de.snookersbuddy.snookersbuddyserver.application.configuration.variant.VariantWithDefaultDTO;
+import de.snookersbuddy.snookersbuddyserver.application.variant.VariantGroupDTO;
+import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.AssignmentRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.item.*;
 import de.snookersbuddy.snookersbuddyserver.domain.model.option.Option;
 import de.snookersbuddy.snookersbuddyserver.domain.model.option.OptionRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.Variant;
+import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantGroupRepository;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.VariantRepository;
+import de.snookersbuddy.snookersbuddyserver.ports.rest.admin.GetTableDataOutput;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsInput;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.item.CreateItemsOutput;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,24 +27,31 @@ public class ItemService {
 
     private final VariantRepository variantRepository;
 
+    private final VariantGroupRepository variantGroupRepository;
+
     private final OptionRepository optionRepository;
 
     private final ItemVariantRepository itemVariantRepository;
 
     private final ItemOptionRepository itemOptionRepository;
 
+    private final AssignmentRepository assignmentRepository;
+
     public ItemService(final ItemRepository itemRepository, final VariantRepository variantRepository, final OptionRepository optionRepository,
-                       final ItemVariantRepository itemVariantRepository, final ItemOptionRepository itemOptionRepository) {
+                       final ItemVariantRepository itemVariantRepository, final ItemOptionRepository itemOptionRepository,
+                       final VariantGroupRepository variantGroupRepository, final AssignmentRepository assignmentRepository) {
 
         this.itemRepository = itemRepository;
         this.variantRepository = variantRepository;
         this.optionRepository = optionRepository;
         this.itemVariantRepository = itemVariantRepository;
         this.itemOptionRepository = itemOptionRepository;
+        this.variantGroupRepository = variantGroupRepository;
+        this.assignmentRepository = assignmentRepository;
     }
 
     public Set<ItemDTO> getAllItems() {
-        final var items = ItemMapper.mapDataObjectsOnTransferObjects(itemRepository.findAll());
+        final var items = ItemDTO.fromEntityList(itemRepository.findAll());
         return Set.copyOf(items);
     }
 
@@ -55,11 +66,11 @@ public class ItemService {
         return new CreateItemsOutput(options, variantWithDefaultDto, availableCategories);
     }
 
-    private Set<OptionDTO> createAvailableOptions(List<Option> availableOptions) {
+    private Set<OptionWithDefaultDTO> createAvailableOptions(List<Option> availableOptions) {
 
-        Set<OptionDTO> optionDTOS = new HashSet<>();
+        Set<OptionWithDefaultDTO> optionDTOS = new HashSet<>();
         availableOptions.forEach(a -> {
-            optionDTOS.add(new OptionDTO(a.getId(), a.getName(), true));
+            optionDTOS.add(new OptionWithDefaultDTO(a.getId(), a.getName(), true));
         });
         return optionDTOS;
     }
@@ -71,7 +82,7 @@ public class ItemService {
 
         long groupId = 0;
         Set<VariantWithDefaultDTO> variantWithDefaultDTOs = new HashSet<>();
-        Set<VariantDTO> variants = new HashSet<>();
+        Set<SingleVariantDTO> variants = new HashSet<>();
 
         for (var variant : variantsOrderedByGroupingId) {
 
@@ -79,7 +90,7 @@ public class ItemService {
             if (groupId != variant.getGroup().getId()) {
 
                 groupId = variant.getGroup().getId();
-                var variantWithSingleVariants = new VariantDTO(variant.getId(), variant.getName());
+                var variantWithSingleVariants = new SingleVariantDTO(variant.getId(), variant.getName());
                 variants = new HashSet(Collections.singleton(variantWithSingleVariants));
                 String groupName = variant.getGroup().getName();
 
@@ -88,7 +99,7 @@ public class ItemService {
 
             } else {
                 // add singleVariants to the VariantDTO (e.g. "0,4" to DTO "Größe")
-                variants.add(new VariantDTO(variant.getId(), variant.getName()));
+                variants.add(new SingleVariantDTO(variant.getId(), variant.getName()));
             }
 
 
@@ -134,6 +145,67 @@ public class ItemService {
             return false;
         }
         return true;
+    }
+
+    public GetTableDataOutput getTableData() {
+        final var assignments = assignmentRepository.findAll();
+        final var options = optionRepository.findAll();
+        final var variants = variantRepository.findAll();
+        final var variantGroups = variantGroupRepository.findAll().stream().map(a
+                -> VariantGroupDTO.fromEntity(a.getId(), a.getName())).collect(Collectors.toSet());
+        List<ItemDTO> items = new ArrayList<>();
+        itemRepository.findAll().forEach(item -> { items.add(ItemDTO.fromEntity(item));
+        });
+
+        return new GetTableDataOutput(items, options, variantGroups, assignments);
+    }
+
+    public void deleteItem(long itemId) {
+        this.itemRepository.deleteById(itemId);
+    }
+
+    public void updateItem(long itemId, CreateItemsInput itemToUpdate) {
+        final var item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Could not find Item with id %s",
+                        itemId)));
+        item.setAbbreviation(itemToUpdate.abbreviation());
+        item.setName(itemToUpdate.itemName());
+        item.setCategory(itemToUpdate.categoryId());
+        itemRepository.save(item);
+
+        // save and update chosen single variants
+        Set<Long> variantIds = new HashSet<>();
+        itemToUpdate.selectedVariants().forEach(variant -> {
+            variant.variants().forEach(singleVariant -> {
+                // build diff of deleted or added singleVariants
+                var itemVariant = itemVariantRepository.findByItem_IdAndVariant_Id(itemId, singleVariant.id());
+                variantIds.add(singleVariant.id());
+
+                if (itemVariant != null) {
+                    itemVariant.setDefaultEnabled(singleVariant.id() == variant.defaultVariantId());
+                    itemVariantRepository.save(itemVariant);
+                } else {
+                    itemVariantRepository.save(new ItemVariant(item, new Variant(singleVariant.id()), variant.defaultVariantId() == singleVariant.id()));
+                }
+            });
+        });
+        // delete singleVariants which are possible removed from variant
+        itemVariantRepository.deleteItemVariantByItemIdWhereVariantIdIsNotIn(itemId, variantIds);
+
+        // save and update chosen options
+        Set<Long> optionIds = new HashSet<>();
+        itemToUpdate.selectedOptions().forEach(option -> {
+            var itemOption = itemOptionRepository.findByItem_IdAndOption_Id(itemId, option.id());
+            optionIds.add(option.id());
+            if (itemOption != null) {
+                itemOption.setDefaultEnabled(option.defaultValue());
+                itemOptionRepository.save(itemOption);
+            } else {
+                itemOptionRepository.save(new ItemOption(item, new Option(option.id()), option.defaultValue()));
+            }
+        });
+        // delete options which are possible removed from ItemConfiguration
+        itemOptionRepository.deleteItemOptionByItemIdWhereOptionIdIsNotIn(itemId, optionIds);
     }
 }
 
