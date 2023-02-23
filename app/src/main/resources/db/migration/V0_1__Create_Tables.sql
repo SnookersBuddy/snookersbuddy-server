@@ -1,9 +1,15 @@
+create type assignment_availability as enum (
+    'FREE',
+    'OCCUPIED'
+);
+
 create table assignment
 (
     id              serial primary key,
     abbreviation    varchar(255),
     assignment_name varchar(255) unique,
-    custom          boolean
+    custom          boolean,
+    availability    assignment_availability not null default 'FREE'
 );
 
 create table item

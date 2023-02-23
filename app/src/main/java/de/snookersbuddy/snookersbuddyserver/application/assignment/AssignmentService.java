@@ -1,6 +1,7 @@
 package de.snookersbuddy.snookersbuddyserver.application.assignment;
 
 import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.Assignment;
+import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.AssignmentAvailability;
 import de.snookersbuddy.snookersbuddyserver.domain.model.assignment.AssignmentRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -71,5 +72,19 @@ public class AssignmentService {
 
     public AssignmentDTO getAssignment(long id) {
         return AssignmentDTO.fromEntity(assignmentRepository.getReferenceById(id));
+    }
+
+    public void occupyById(Long id) {
+        setAvailabilityById(id, AssignmentAvailability.OCCUPIED);
+    }
+
+    public void freeById(Long id) {
+        setAvailabilityById(id, AssignmentAvailability.FREE);
+    }
+
+    private void setAvailabilityById(Long id, AssignmentAvailability availability) {
+        final var assignment = assignmentRepository.findById(id).orElseThrow();
+        assignment.setAvailability(availability);
+        assignmentRepository.save(assignment);
     }
 }
