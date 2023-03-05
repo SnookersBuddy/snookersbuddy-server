@@ -26,17 +26,17 @@ public class OrderService {
     }
 
     @Transactional
-    public void initOrder(Assignment assignmentIn) {
-        var existingOrder = orderRepository.findOrderByAssignmentIdAndEndTime(assignmentIn.getId(), 0);
+    public void initOrder(Assignment assignment) {
+        var existingOrder = orderRepository.findOrderByAssignmentIdAndEndTime(assignment.getId(), 0);
         if (existingOrder.isEmpty()) {
             final var newOrder = new Order();
-            newOrder.setAssignment(assignmentIn);
+            newOrder.setAssignment(assignment);
             newOrder.setStartTime((int) new Date().getTime());
             newOrder.setEndTime(0);
             orderRepository.save(newOrder);
 
             // When first creating an order set availability to occupied.
-            assignmentService.occupyById(assignmentIn.getId());
+            assignmentService.occupyById(assignment.getId());
         }
     }
 
