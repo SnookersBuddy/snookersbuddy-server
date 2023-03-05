@@ -1,11 +1,13 @@
 package de.snookersbuddy.snookersbuddyserver.domain.model.assignment;
 
+import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Getter
@@ -30,5 +32,8 @@ public class Assignment implements Serializable {
     @Column(name = "custom")
     private boolean custom;
 
-
+    @Column(name = "availability")
+    @Type(PostgreSQLEnumType.class)
+    @Enumerated(EnumType.STRING)
+    private AssignmentAvailability availability;
 }
