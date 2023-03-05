@@ -63,7 +63,10 @@ public class ItemService {
         final var variantWithDefaultDto = createAvailableVariants(availableVariants);
         final var options = createAvailableOptions(availableOptions);
 
-        return new CreateItemsOutput(options, variantWithDefaultDto, availableCategories);
+        return new CreateItemsOutput(
+                "itemName", "itNam", 1, new HashSet<>(),
+                new HashSet<>(), options, variantWithDefaultDto, availableCategories
+        );
     }
 
     private Set<OptionWithDefaultDTO> createAvailableOptions(List<Option> availableOptions) {
@@ -154,7 +157,8 @@ public class ItemService {
         final var variantGroups = variantGroupRepository.findAll().stream().map(a
                 -> VariantGroupDTO.fromEntity(a.getId(), a.getName())).collect(Collectors.toSet());
         List<ItemDTO> items = new ArrayList<>();
-        itemRepository.findAll().forEach(item -> { items.add(ItemDTO.fromEntity(item));
+        itemRepository.findAll().forEach(item -> {
+            items.add(ItemDTO.fromEntity(item));
         });
 
         return new GetTableDataOutput(items, options, variantGroups, assignments);

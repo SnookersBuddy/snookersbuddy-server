@@ -21,6 +21,8 @@ public class VariantController {
 
     @GetMapping("/api/variant/{variantId}")
     public VariantOutput getVariant(@PathVariable("variantId") long variantId){
+        var test = this.variantService.getVariantByGroupId(variantId);
+        System.out.println(test);
         return this.variantService.getVariantByGroupId(variantId);
     }
 
