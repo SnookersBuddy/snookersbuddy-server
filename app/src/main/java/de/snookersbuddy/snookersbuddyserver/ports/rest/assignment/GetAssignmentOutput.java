@@ -1,6 +1,4 @@
 package de.snookersbuddy.snookersbuddyserver.ports.rest.assignment;
 
-import de.snookersbuddy.snookersbuddyserver.application.assignment.AssignmentDTO;
-
-public record GetAssignmentOutput(AssignmentDTO assignmentDTO) {
+public record GetAssignmentOutput(long id, String abbreviation, boolean custom, String displayName) {
 }

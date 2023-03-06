@@ -34,7 +34,12 @@ public class AssignmentController {
     @GetMapping("/api/assignment/{assignmentId}")
     public GetAssignmentOutput getAssignment(@PathVariable("assignmentId") long assignmentId) {
         final var assignment = assignmentService.getAssignment(assignmentId);
-        return new GetAssignmentOutput(assignment);
+        return new GetAssignmentOutput(
+                assignment.id(),
+                assignment.abbreviation(),
+                assignment.custom(),
+                assignment.displayName()
+        );
     }
 
     @PutMapping(value = "/api/assignment/{assignmentId}")

@@ -11,7 +11,7 @@ public record AssignmentDTO(long id, String abbreviation, boolean custom, String
                             AssignmentAvailability availability) {
 
     public static AssignmentDTO fromEntity(Assignment assignment) {
-        return new AssignmentDTO(assignment.getId(), assignment.getAbbreviation(), assignment.isCustom(), assignment.getAssignmentName(), assignment.getAvailability());
+        return new AssignmentDTO(assignment.getId(), assignment.getAbbreviation(), assignment.isCustom(), assignment.getDisplayName(), assignment.getAvailability());
     }
 
     public static Set<AssignmentDTO> fromEntitySet(List<Assignment> assignments) {

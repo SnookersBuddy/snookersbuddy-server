@@ -26,8 +26,8 @@ public class Assignment implements Serializable {
     @Column(name = "abbreviation")
     private String abbreviation;
 
-    @Column(name = "assignment_name")
-    private String assignmentName;
+    @Column(name = "display_name")
+    private String displayName;
 
     @Column(name = "custom")
     private boolean custom;

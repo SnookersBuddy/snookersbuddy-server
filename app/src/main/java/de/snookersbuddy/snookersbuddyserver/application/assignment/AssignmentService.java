@@ -34,7 +34,7 @@ public class AssignmentService {
                         "Could not find assignment with id %s",
                         assignmentId)));
 
-        assignment.setAssignmentName(assignmentToUpdate.assignmentName());
+        assignment.setDisplayName(assignmentToUpdate.displayName());
         assignment.setCustom(false);
         assignment.setAbbreviation(assignmentToUpdate.abbreviation());
         assignmentRepository.save(assignment);
@@ -56,7 +56,7 @@ public class AssignmentService {
 
     private Assignment mapAssignmentInputOnAssignment(final AssignmentInput assignmentInput) {
         var assignment = new Assignment();
-        assignment.setAssignmentName(assignmentInput.assignmentName());
+        assignment.setDisplayName(assignmentInput.displayName());
         assignment.setCustom(DEFAULT_CUSTOM_VALUE);
         assignment.setAbbreviation(assignmentInput.abbreviation());
         return  assignment;
@@ -65,7 +65,7 @@ public class AssignmentService {
     private Assignment createDataObjectByTransferObject(String name) {
         Assignment customAssignment = new Assignment();
         customAssignment.setCustom(DEFAULT_CUSTOM_VALUE);
-        customAssignment.setAssignmentName(name);
+        customAssignment.setDisplayName(name);
         customAssignment.setAbbreviation(name);
         return customAssignment;
     }
