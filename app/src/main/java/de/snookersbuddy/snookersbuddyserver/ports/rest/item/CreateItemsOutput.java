@@ -8,11 +8,10 @@ import java.io.Serializable;
 import java.util.Set;
 
 public record CreateItemsOutput(
+        long itemId,
         String itemName,
         String abbreviation,
         int categoryId,
-        Set<OptionWithDefaultDTO> selectedOptions,
-        Set<VariantWithDefaultDTO> selectedVariants,
         Set<OptionWithDefaultDTO> availableOptions,
         Set<VariantWithDefaultDTO> availableVariants,
         Set<ItemCategoryDTO> availableCategories) implements Serializable {

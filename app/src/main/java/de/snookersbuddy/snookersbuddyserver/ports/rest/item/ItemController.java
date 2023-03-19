@@ -5,6 +5,8 @@ import de.snookersbuddy.snookersbuddyserver.application.item.ItemService;
 import de.snookersbuddy.snookersbuddyserver.ports.rest.configuration.GetConfigurationOutput;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 public class ItemController {
 
@@ -23,9 +25,9 @@ public class ItemController {
         return new GetItemsOutput(items);
     }
 
-    @GetMapping("/api/item-creation-data")
-    public CreateItemsOutput fetchCreationData() {
-        return itemService.getAllConfigurationsForItems();
+    @GetMapping({"/api/item-creation-data/{itemId}", "/api/item-creation-data"})
+    public CreateItemsOutput fetchCreationData(@PathVariable Optional<Long> itemId) {
+        return itemService.getAllConfigurationsForItems(itemId);
     }
 
     @GetMapping("/api/item/{itemId}")
