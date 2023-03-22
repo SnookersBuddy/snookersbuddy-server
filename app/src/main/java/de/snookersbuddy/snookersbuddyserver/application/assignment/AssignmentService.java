@@ -59,6 +59,7 @@ public class AssignmentService {
         assignment.setDisplayName(assignmentInput.displayName());
         assignment.setCustom(DEFAULT_CUSTOM_VALUE);
         assignment.setAbbreviation(assignmentInput.abbreviation());
+        assignment.setAvailability(AssignmentAvailability.FREE);
         return  assignment;
     }
 
