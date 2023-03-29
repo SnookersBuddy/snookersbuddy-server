@@ -414,4 +414,8 @@ on conflict do nothing;
 -- TODO - Tea
 -- TODO - Snacks ?
 
+insert into item (id, item_name, abbreviation, category, description, special_feature)
+values (999, 'Freies Getränk', 'XXX', 99, 'Ein Posten zur freien Definition eines Getränks', null)
+on conflict do nothing;
+
 SELECT setval('item_id_seq', (SELECT MAX(id) FROM item)+1);
