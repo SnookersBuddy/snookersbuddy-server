@@ -2,18 +2,18 @@ package de.snookersbuddy.snookersbuddyserver.application.configuration.variant;
 
 import de.snookersbuddy.snookersbuddyserver.domain.model.order.ChosenVariant;
 import de.snookersbuddy.snookersbuddyserver.domain.model.variant.Variant;
+import org.springframework.lang.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public record SingleVariantDTO(long id, String name) {
-
+public record SingleVariantDTO(@Nullable Long id, String name, boolean selected) {
     public static SingleVariantDTO fromEntity(ChosenVariant variant) {
-        return new SingleVariantDTO(variant.originalId(), variant.name());
+        return new SingleVariantDTO(variant.originalId(), variant.name(), variant.selected());
     }
 
     public ChosenVariant toEntity() {
-        return new ChosenVariant(id, name);
+        return new ChosenVariant(id, name, selected);
     }
 
     public static Set<SingleVariantDTO> fromEntitySet(Set<Variant> variants) {

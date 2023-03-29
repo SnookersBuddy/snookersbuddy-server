@@ -55,27 +55,64 @@ public class ItemService {
         return Set.copyOf(items);
     }
 
-    public CreateItemsOutput getAllConfigurationsForItems() {
+    public CreateItemsOutput getAllConfigurationsForItems(Optional<Long> itemId) {
         final var availableCategories = Arrays.stream(ItemCategories.values()).map(a -> new ItemCategoryDTO(a.getCategoryName(), a.getId())).collect(Collectors.toSet());
         final var availableOptions = optionRepository.findAll();
         final var availableVariants = variantRepository.findAll();
 
-        final var variantWithDefaultDto = createAvailableVariants(availableVariants);
-        final var options = createAvailableOptions(availableOptions);
+        // new created item
+        var itemName = "";
+        var abbreviation = "";
+        var categoryId = 0;
+        var id = 0L;
 
-        return new CreateItemsOutput(options, variantWithDefaultDto, availableCategories);
+        Map<String, Map<Long, ItemVariant>> itemVariantsByIdByVariantGroup = new HashMap<>();
+        Map<Long, ItemOption> itemOptionsById = new HashMap<>();
+
+        // only if item is already existing - fill data from saved items such as default selection, name etc.
+        if (itemId.isPresent()) {
+
+            final var allowedOptions = itemOptionRepository.findByItem_Id(itemId.get());
+            final var allowedVariants = itemVariantRepository.findByItem_Id(itemId.get());
+            final var selectedItem = itemRepository.getReferenceById(itemId.get());
+
+            itemName = selectedItem.getName();
+            abbreviation = selectedItem.getAbbreviation();
+            categoryId = selectedItem.getCategory();
+            id = itemId.get();
+
+            // needed for determining defaultValues/selections
+            allowedVariants.forEach(a -> {
+                if (!itemVariantsByIdByVariantGroup.containsKey(a.getVariant().getGroup().getName())) {
+                    itemVariantsByIdByVariantGroup.put(a.getVariant().getGroup().getName(), new HashMap<>());
+                }
+                itemVariantsByIdByVariantGroup.get(a.getVariant().getGroup().getName()).put(a.getId().getVariantId(), a);
+            });
+            // needed for determining defaultValues/selections
+            allowedOptions.forEach(a -> {
+                itemOptionsById.put(a.getId().getOptionId(), a);
+            });
+
+        }
+
+        var variantWithDefaultDto = createAvailableVariants(availableVariants, itemVariantsByIdByVariantGroup);
+        var options = createAvailableOptions(availableOptions, itemOptionsById);
+
+        return new CreateItemsOutput(id, itemName, abbreviation, categoryId, options, variantWithDefaultDto, availableCategories);
     }
 
-    private Set<OptionWithDefaultDTO> createAvailableOptions(List<Option> availableOptions) {
+    private Set<OptionWithDefaultDTO> createAvailableOptions(List<Option> availableOptions, Map<Long, ItemOption> itemOptionsById) {
 
         Set<OptionWithDefaultDTO> optionDTOS = new HashSet<>();
         availableOptions.forEach(a -> {
-            optionDTOS.add(new OptionWithDefaultDTO(a.getId(), a.getName(), true));
+            var selected = itemOptionsById.containsKey(a.getId());
+            var defaultValue = itemOptionsById.containsKey(a.getId()) && itemOptionsById.get(a.getId()).isDefaultEnabled();
+            optionDTOS.add(new OptionWithDefaultDTO(a.getId(), a.getName(), defaultValue, selected));
         });
         return optionDTOS;
     }
 
-    private Set<VariantWithDefaultDTO> createAvailableVariants(List<Variant> availableVariants) {
+    private Set<VariantWithDefaultDTO> createAvailableVariants(List<Variant> availableVariants, Map<String, Map<Long, ItemVariant>> itemVariantsByIdByVariantGroup) {
 
         Set<Variant> variantsOrderedByGroupingId = availableVariants.stream().sorted(Comparator.comparing(Variant::getGroup, (s1, s2)
                 -> s2.getId().compareTo(s1.getId()))).collect(Collectors.toCollection(LinkedHashSet::new));
@@ -86,25 +123,40 @@ public class ItemService {
 
         for (var variant : variantsOrderedByGroupingId) {
 
+            // if at least one variant is selected, a default is guaranteed
+            var defaultVariantId = 0L;
+            if (itemVariantsByIdByVariantGroup.containsKey(variant.getGroup().getName())) {
+                defaultVariantId = itemVariantsByIdByVariantGroup.get(variant.getGroup().getName()).values().stream().filter(ItemVariant::isDefaultEnabled).findFirst().get().getId().getVariantId();
+            }
+
+            var selected = determineSelectionOfVariant(itemVariantsByIdByVariantGroup, variant);
+
             // creates a new VariantDTO if the grouping changes (e.g. "Größe" to "Longdrink")
             if (groupId != variant.getGroup().getId()) {
 
                 groupId = variant.getGroup().getId();
-                var variantWithSingleVariants = new SingleVariantDTO(variant.getId(), variant.getName());
+                var variantWithSingleVariants = new SingleVariantDTO(variant.getId(), variant.getName(), selected);
                 variants = new HashSet(Collections.singleton(variantWithSingleVariants));
                 String groupName = variant.getGroup().getName();
 
-                var variantWithDefaultDto = new VariantWithDefaultDTO(groupName, 0, variants);
+                var variantWithDefaultDto = new VariantWithDefaultDTO(groupName, defaultVariantId, variants);
                 variantWithDefaultDTOs.add(variantWithDefaultDto);
 
             } else {
                 // add singleVariants to the VariantDTO (e.g. "0,4" to DTO "Größe")
-                variants.add(new SingleVariantDTO(variant.getId(), variant.getName()));
+                variants.add(new SingleVariantDTO(variant.getId(), variant.getName(), selected));
             }
 
 
         }
         return variantWithDefaultDTOs;
+    }
+
+    private boolean determineSelectionOfVariant(Map<String, Map<Long, ItemVariant>> test, Variant variant) {
+        if (test.containsKey(variant.getGroup().getName())) {
+            return test.get(variant.getGroup().getName()).containsKey(variant.getId());
+        }
+        return false;
     }
 
     public boolean createItem(CreateItemsInput createItemsInput) {
@@ -120,7 +172,7 @@ public class ItemService {
             item = itemRepository.saveAndFlush(item);
 
             // save optionReferences for new Item
-            for (var option : createItemsInput.selectedOptions()) {
+            for (var option : createItemsInput.availableOptions()) {
                 var itemOption = new ItemOption();
                 itemOption.setItem(item);
                 itemOption.setOption(new Option(option.id()));
@@ -129,7 +181,7 @@ public class ItemService {
             }
 
             // save variantReferences for new Item
-            for (var variant : createItemsInput.selectedVariants()) {
+            for (var variant : createItemsInput.availableVariants()) {
                 for (var singleVariant : variant.variants()) {
                     var itemVariant = new ItemVariant();
                     itemVariant.setItem(item);
@@ -154,7 +206,8 @@ public class ItemService {
         final var variantGroups = variantGroupRepository.findAll().stream().map(a
                 -> VariantGroupDTO.fromEntity(a.getId(), a.getName())).collect(Collectors.toSet());
         List<ItemDTO> items = new ArrayList<>();
-        itemRepository.findAll().forEach(item -> { items.add(ItemDTO.fromEntity(item));
+        itemRepository.findAll().forEach(item -> {
+            items.add(ItemDTO.fromEntity(item));
         });
 
         return new GetTableDataOutput(items, options, variantGroups, assignments);
@@ -175,7 +228,7 @@ public class ItemService {
 
         // save and update chosen single variants
         Set<Long> variantIds = new HashSet<>();
-        itemToUpdate.selectedVariants().forEach(variant -> {
+        itemToUpdate.availableVariants().forEach(variant -> {
             variant.variants().forEach(singleVariant -> {
                 // build diff of deleted or added singleVariants
                 var itemVariant = itemVariantRepository.findByItem_IdAndVariant_Id(itemId, singleVariant.id());
@@ -194,7 +247,7 @@ public class ItemService {
 
         // save and update chosen options
         Set<Long> optionIds = new HashSet<>();
-        itemToUpdate.selectedOptions().forEach(option -> {
+        itemToUpdate.availableOptions().forEach(option -> {
             var itemOption = itemOptionRepository.findByItem_IdAndOption_Id(itemId, option.id());
             optionIds.add(option.id());
             if (itemOption != null) {

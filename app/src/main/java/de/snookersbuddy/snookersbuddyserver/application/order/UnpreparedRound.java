@@ -21,9 +21,9 @@ public record UnpreparedRound(long id, Instant orderedAt, Set<OrderedItemDto> or
                                          .collect(Collectors.toSet());
 
         return new UnpreparedRound(round.getId(),
-                                   round.getOrderedAt(),
-                                   orderedItemDtos,
-                                   round.getOrder().getAssignment().getAssignmentName());
+                round.getOrderedAt(),
+                orderedItemDtos,
+                round.getOrder().getAssignment().getDisplayName());
     }
 
     @Builder
