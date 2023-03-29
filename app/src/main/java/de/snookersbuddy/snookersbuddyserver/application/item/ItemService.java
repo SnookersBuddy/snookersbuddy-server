@@ -61,10 +61,10 @@ public class ItemService {
         final var availableVariants = variantRepository.findAll();
 
         // new created item
-        String itemName = "";
-        String abbreviation = "";
-        int categoryId = 0;
-        long id = 0;
+        var itemName = "";
+        var abbreviation = "";
+        var categoryId = 0;
+        var id = 0L;
 
         Map<String, Map<Long, ItemVariant>> itemVariantsByIdByVariantGroup = new HashMap<>();
         Map<Long, ItemOption> itemOptionsById = new HashMap<>();
