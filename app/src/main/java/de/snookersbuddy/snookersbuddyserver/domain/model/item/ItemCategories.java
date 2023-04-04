@@ -43,7 +43,9 @@ public enum ItemCategories {
 
     SCHWEPPES("Schweppes", 16),
 
-    COCKTAIL("Cocktail", 17);
+    COCKTAIL("Cocktail", 17),
+
+    CUSTOM("Custom", 18);
 
     private final String categoryName;
     private final int id;
