@@ -27,8 +27,6 @@ public class TableController {
 
     @GetMapping("/api/table-data")
     public GetTableDataOutput getOptions() {
-        final var items = itemService.getTableData();
-        var test = this.itemService.getTableData();
-        return test;
+        return this.itemService.getTableData();
     }
 }

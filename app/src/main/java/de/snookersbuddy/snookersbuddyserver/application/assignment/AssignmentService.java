@@ -11,7 +11,6 @@ import java.util.Set;
 @Service
 public class AssignmentService {
 
-    private static final boolean DEFAULT_CUSTOM_VALUE = false;
     private final AssignmentRepository assignmentRepository;
 
     public AssignmentService(AssignmentRepository assignmentRepository) {
@@ -35,7 +34,7 @@ public class AssignmentService {
                         assignmentId)));
 
         assignment.setDisplayName(assignmentToUpdate.displayName());
-        assignment.setCustom(false);
+        assignment.setCustom(assignmentToUpdate.custom());
         assignment.setAbbreviation(assignmentToUpdate.abbreviation());
         assignmentRepository.save(assignment);
     }
@@ -44,31 +43,13 @@ public class AssignmentService {
         this.assignmentRepository.deleteById(assignmentId);
     }
 
-    public boolean createNewCustomAssignment(String name) {
-        try {
-            Assignment customAssignment = createDataObjectByTransferObject(name);
-            assignmentRepository.save(customAssignment);
-            return true;
-        } catch (DataIntegrityViolationException d) {
-            return false;
-        }
-    }
-
     private Assignment mapAssignmentInputOnAssignment(final AssignmentInput assignmentInput) {
         var assignment = new Assignment();
         assignment.setDisplayName(assignmentInput.displayName());
-        assignment.setCustom(DEFAULT_CUSTOM_VALUE);
+        assignment.setCustom(assignmentInput.custom());
         assignment.setAbbreviation(assignmentInput.abbreviation());
         assignment.setAvailability(AssignmentAvailability.FREE);
         return  assignment;
-    }
-
-    private Assignment createDataObjectByTransferObject(String name) {
-        Assignment customAssignment = new Assignment();
-        customAssignment.setCustom(DEFAULT_CUSTOM_VALUE);
-        customAssignment.setDisplayName(name);
-        customAssignment.setAbbreviation(name);
-        return customAssignment;
     }
 
     public AssignmentDTO getAssignment(long id) {
