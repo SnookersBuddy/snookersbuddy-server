@@ -14,11 +14,6 @@ public class AssignmentController {
         this.assignmentService = assignmentService;
     }
 
-    @PostMapping("api/assignments/create")
-    public boolean createCustomAssignment(@RequestBody CreateAssignmentInput createAssignmentInput) {
-        return assignmentService.createNewCustomAssignment(createAssignmentInput.name());
-    }
-
     @PostMapping("/api/assignment")
     @ResponseStatus(HttpStatus.CREATED)
     public void createAssignment(@RequestBody AssignmentInput assignmentToCreate) {

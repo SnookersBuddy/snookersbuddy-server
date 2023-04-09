@@ -202,7 +202,6 @@ public class ItemService {
     public GetTableDataOutput getTableData() {
         final var assignments = assignmentRepository.findAll();
         final var options = optionRepository.findAll();
-        final var variants = variantRepository.findAll();
         final var variantGroups = variantGroupRepository.findAll().stream().map(a
                 -> VariantGroupDTO.fromEntity(a.getId(), a.getName())).collect(Collectors.toSet());
         List<ItemDTO> items = new ArrayList<>();
