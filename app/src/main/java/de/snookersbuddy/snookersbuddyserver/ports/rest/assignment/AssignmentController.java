@@ -47,4 +47,11 @@ public class AssignmentController {
         this.assignmentService.deleteAssignment(assignmentId);
     }
 
+    @PutMapping(value = "/api/assignment/old/{oldAssignmentId}/new/{newAssignmentId}")
+    public void switchOrderToAnotherAssignment(
+            @PathVariable("oldAssignmentId") long oldAssignmentId,
+            @PathVariable("newAssignmentId") long newAssignmentId) {
+        this.assignmentService.switchOrderToAnotherAssignment(oldAssignmentId, newAssignmentId);
+    }
+
 }
