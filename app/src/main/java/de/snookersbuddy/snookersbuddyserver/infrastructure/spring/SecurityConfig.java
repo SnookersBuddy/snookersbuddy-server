@@ -20,7 +20,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-            .authorizeHttpRequests().requestMatchers("/api/prometheus/**").authenticated().and().httpBasic()
+            .authorizeHttpRequests().requestMatchers("/api/prometheus/**").hasRole("MONITORING").and().httpBasic()
             .and()
             .authorizeHttpRequests().requestMatchers("/**").permitAll()
             .and()
@@ -30,8 +30,8 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService users() {
         final UserBuilder users = User.withDefaultPasswordEncoder();
+        // FIXME: Obviously not ready for production
         final UserDetails apiuser = users
-            // FIXME: Obviously not ready for production
             .username("prometheus")
             .password("prometheus")
             .roles("MONITORING")
